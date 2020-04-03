@@ -6,34 +6,48 @@
  */
 
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  Button,
+  TouchableOpacity,
+} from 'react-native';
 
 import ScreenBrief from '../components/ScreenBrief';
 import ManeuverOverviewItem from '../components/ManeuverOverviewItem';
+import maneuvers from '../atoms/ManeuverTypes';
 
-export default function BriefingRoom() {
+export default function BriefingRoom({ navigation }) {
   return (
     <View style={styles.rootContainer}>
       <ScreenBrief
         briefTitle="BriefingRoom"
-        briefDescription="It is important that you regularly train common flight manoeuvres. 
+        briefDescription="It is important that you regularly train common flight maneuvers. 
         Exercise and master them and you will know what to do when you need to."
         callToAction="Select a maneuver to start training."
       />
-      <ScrollView style={styles.maneuverListContainer}>
+      <View style={styles.maneuverListContainer}>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate('ManeuverScreen', { maneuverType: maneuvers.steepTurns })
+          }>
+          <ManeuverOverviewItem
+            maneuverTitle={maneuvers.steepTurns}
+            accuracy={80}
+            frequency={9}
+            overallTrainingStatus={83}
+          />
+        </TouchableOpacity>
+
         <ManeuverOverviewItem
-          maneuverTitle="Steep turns"
-          accuracy={80}
-          frequency={9}
-          overallTrainingStatus={83}
-        />
-        <ManeuverOverviewItem
-          maneuverTitle="Power ON stalls"
+          maneuverTitle={maneuvers.powerOnStalls}
           accuracy={75}
           frequency={3}
           overallTrainingStatus={71}
         />
-      </ScrollView>
+      </View>
     </View>
   );
 }

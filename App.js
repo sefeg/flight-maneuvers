@@ -16,10 +16,11 @@ import {
   Button,
   Image,
 } from 'react-native';
-import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
 import BriefingRoom from './src/screens/BriefingRoom';
+import ManeuverScreen from './src/screens/ManeuverScreen';
 
 const Stack = createStackNavigator();
 
@@ -32,6 +33,7 @@ function App() {
           title: 'FlightManeuvers',
         }}>
         <Stack.Screen name="BriefingRoom" component={BriefingRoom} />
+        <Stack.Screen name="ManeuverScreen" component={ManeuverScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
