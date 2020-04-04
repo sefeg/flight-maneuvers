@@ -25,7 +25,7 @@ export default function BriefingRoom({ navigation }) {
       <ScreenBrief
         briefTitle="BriefingRoom"
         briefDescription="It is important that you regularly train common flight maneuvers. 
-        Exercise and master them and you will know what to do when you need to."
+        Exercise and master them and you will be ready when you need to be."
         callToAction="Select a maneuver to start training."
       />
       <View style={styles.maneuverListContainer}>
