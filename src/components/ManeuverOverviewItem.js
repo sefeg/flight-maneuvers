@@ -4,10 +4,10 @@
  */
 
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import { View, Text, StyleSheet, Button } from 'react-native';
 import PropTypes from 'prop-types';
-import {AnimatedCircularProgress} from 'react-native-circular-progress';
-import ManeuverScreen from '../screens/ManeuverScreen.js';
+import { AnimatedCircularProgress } from 'react-native-circular-progress';
+
 /**
  * @param {Number} accuracy
  * @returns {String} descriptor for the specified accuracy. Either Very poor (< 20%), Poor (< 40%),

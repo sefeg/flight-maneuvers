@@ -12,14 +12,14 @@
 		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		1E164AE943239D0A7BBEF308 /* libPods-FlightManeuvers.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CAFBED528A2AEAE7646DBBAD /* libPods-FlightManeuvers.a */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* FlightManeuversTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* FlightManeuversTests.m */; };
-		414F77E721754635C482209F /* libPods-FlightManeuvers-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A773FE5F4A2D10562476DEC8 /* libPods-FlightManeuvers-tvOS.a */; };
-		651FFD7C9343A8BA15C76282 /* libPods-FlightManeuvers-FlightManeuversTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DA669BBA9CCEAEB82062479 /* libPods-FlightManeuvers-FlightManeuversTests.a */; };
-		7660F431E48B7D3D380A9089 /* libPods-FlightManeuvers-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6689DB64FFFDC84CB4B1FA28 /* libPods-FlightManeuvers-tvOSTests.a */; };
-		C682C8EC135C128921662A1B /* libPods-FlightManeuvers.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 736BBC89A2ABBC45F81EB4B0 /* libPods-FlightManeuvers.a */; };
+		43B6FAFE22F52F3BD6AB9653 /* libPods-FlightManeuvers-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1650EF0DF89698B4BFFC262E /* libPods-FlightManeuvers-tvOS.a */; };
+		6A070CB593AF1E6DE4375D3D /* libPods-FlightManeuvers-FlightManeuversTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B0FCE30FC3A7523313F6E666 /* libPods-FlightManeuvers-FlightManeuversTests.a */; };
+		89114B332E876F7C162F63FB /* libPods-FlightManeuvers-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00516BD48A3E2C8CFB1E7423 /* libPods-FlightManeuvers-tvOSTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,10 +40,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		00516BD48A3E2C8CFB1E7423 /* libPods-FlightManeuvers-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FlightManeuvers-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		00E356EE1AD99517003FC87E /* FlightManeuversTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FlightManeuversTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* FlightManeuversTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FlightManeuversTests.m; sourceTree = "<group>"; };
+		037759B5FB75ED1B045F9781 /* Pods-FlightManeuvers-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlightManeuvers-tvOS.release.xcconfig"; path = "Target Support Files/Pods-FlightManeuvers-tvOS/Pods-FlightManeuvers-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* FlightManeuvers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlightManeuvers.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = FlightManeuvers/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = FlightManeuvers/AppDelegate.m; sourceTree = "<group>"; };
@@ -51,22 +53,20 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = FlightManeuvers/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = FlightManeuvers/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = FlightManeuvers/main.m; sourceTree = "<group>"; };
+		1650EF0DF89698B4BFFC262E /* libPods-FlightManeuvers-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FlightManeuvers-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E47B1E0B4A5D006451C7 /* FlightManeuvers-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "FlightManeuvers-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* FlightManeuvers-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "FlightManeuvers-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		2DA669BBA9CCEAEB82062479 /* libPods-FlightManeuvers-FlightManeuversTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FlightManeuvers-FlightManeuversTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		4AC304218FBBBB3AED4AA908 /* Pods-FlightManeuvers-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlightManeuvers-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-FlightManeuvers-tvOS/Pods-FlightManeuvers-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
-		58AB7C9A911A4899C2A91D6C /* Pods-FlightManeuvers.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlightManeuvers.release.xcconfig"; path = "Target Support Files/Pods-FlightManeuvers/Pods-FlightManeuvers.release.xcconfig"; sourceTree = "<group>"; };
-		6689DB64FFFDC84CB4B1FA28 /* libPods-FlightManeuvers-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FlightManeuvers-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		6D8DF16C952C62D2FDF5B3BC /* Pods-FlightManeuvers-FlightManeuversTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlightManeuvers-FlightManeuversTests.debug.xcconfig"; path = "Target Support Files/Pods-FlightManeuvers-FlightManeuversTests/Pods-FlightManeuvers-FlightManeuversTests.debug.xcconfig"; sourceTree = "<group>"; };
-		736BBC89A2ABBC45F81EB4B0 /* libPods-FlightManeuvers.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FlightManeuvers.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		94A38C09389667D567CBAEF4 /* Pods-FlightManeuvers-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlightManeuvers-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-FlightManeuvers-tvOSTests/Pods-FlightManeuvers-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
-		A773FE5F4A2D10562476DEC8 /* libPods-FlightManeuvers-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FlightManeuvers-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		D7A38970BAF663F3BBDEB54F /* Pods-FlightManeuvers-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlightManeuvers-tvOS.release.xcconfig"; path = "Target Support Files/Pods-FlightManeuvers-tvOS/Pods-FlightManeuvers-tvOS.release.xcconfig"; sourceTree = "<group>"; };
-		E44D3EB430901F262C53FAA1 /* Pods-FlightManeuvers.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlightManeuvers.debug.xcconfig"; path = "Target Support Files/Pods-FlightManeuvers/Pods-FlightManeuvers.debug.xcconfig"; sourceTree = "<group>"; };
-		E897B753982E4052C434E755 /* Pods-FlightManeuvers-FlightManeuversTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlightManeuvers-FlightManeuversTests.release.xcconfig"; path = "Target Support Files/Pods-FlightManeuvers-FlightManeuversTests/Pods-FlightManeuvers-FlightManeuversTests.release.xcconfig"; sourceTree = "<group>"; };
+		34D77242B73E2D896F46A825 /* Pods-FlightManeuvers-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlightManeuvers-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-FlightManeuvers-tvOSTests/Pods-FlightManeuvers-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
+		44B8A1BDBE6AC4416E7E8E3C /* Pods-FlightManeuvers-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlightManeuvers-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-FlightManeuvers-tvOSTests/Pods-FlightManeuvers-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		44EDB867E1A6B531F4C6F850 /* Pods-FlightManeuvers-FlightManeuversTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlightManeuvers-FlightManeuversTests.release.xcconfig"; path = "Target Support Files/Pods-FlightManeuvers-FlightManeuversTests/Pods-FlightManeuvers-FlightManeuversTests.release.xcconfig"; sourceTree = "<group>"; };
+		54A7D513F5444331EEDE3E89 /* Pods-FlightManeuvers.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlightManeuvers.debug.xcconfig"; path = "Target Support Files/Pods-FlightManeuvers/Pods-FlightManeuvers.debug.xcconfig"; sourceTree = "<group>"; };
+		66BEECA41A5E1379B570FA64 /* Pods-FlightManeuvers-FlightManeuversTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlightManeuvers-FlightManeuversTests.debug.xcconfig"; path = "Target Support Files/Pods-FlightManeuvers-FlightManeuversTests/Pods-FlightManeuvers-FlightManeuversTests.debug.xcconfig"; sourceTree = "<group>"; };
+		B0FCE30FC3A7523313F6E666 /* libPods-FlightManeuvers-FlightManeuversTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FlightManeuvers-FlightManeuversTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C04D08C400EC7FCBB5359501 /* Pods-FlightManeuvers-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlightManeuvers-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-FlightManeuvers-tvOS/Pods-FlightManeuvers-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
+		CAFBED528A2AEAE7646DBBAD /* libPods-FlightManeuvers.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FlightManeuvers.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D2E03A086DFCAC806986FCED /* Pods-FlightManeuvers.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlightManeuvers.release.xcconfig"; path = "Target Support Files/Pods-FlightManeuvers/Pods-FlightManeuvers.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
-		F3CF5F4D035186C44FBE3AC2 /* Pods-FlightManeuvers-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlightManeuvers-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-FlightManeuvers-tvOSTests/Pods-FlightManeuvers-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,7 +74,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				651FFD7C9343A8BA15C76282 /* libPods-FlightManeuvers-FlightManeuversTests.a in Frameworks */,
+				6A070CB593AF1E6DE4375D3D /* libPods-FlightManeuvers-FlightManeuversTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -82,7 +82,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C682C8EC135C128921662A1B /* libPods-FlightManeuvers.a in Frameworks */,
+				1E164AE943239D0A7BBEF308 /* libPods-FlightManeuvers.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -90,7 +90,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				414F77E721754635C482209F /* libPods-FlightManeuvers-tvOS.a in Frameworks */,
+				43B6FAFE22F52F3BD6AB9653 /* libPods-FlightManeuvers-tvOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -98,7 +98,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7660F431E48B7D3D380A9089 /* libPods-FlightManeuvers-tvOSTests.a in Frameworks */,
+				89114B332E876F7C162F63FB /* libPods-FlightManeuvers-tvOSTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -141,10 +141,10 @@
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
-				736BBC89A2ABBC45F81EB4B0 /* libPods-FlightManeuvers.a */,
-				2DA669BBA9CCEAEB82062479 /* libPods-FlightManeuvers-FlightManeuversTests.a */,
-				A773FE5F4A2D10562476DEC8 /* libPods-FlightManeuvers-tvOS.a */,
-				6689DB64FFFDC84CB4B1FA28 /* libPods-FlightManeuvers-tvOSTests.a */,
+				CAFBED528A2AEAE7646DBBAD /* libPods-FlightManeuvers.a */,
+				B0FCE30FC3A7523313F6E666 /* libPods-FlightManeuvers-FlightManeuversTests.a */,
+				1650EF0DF89698B4BFFC262E /* libPods-FlightManeuvers-tvOS.a */,
+				00516BD48A3E2C8CFB1E7423 /* libPods-FlightManeuvers-tvOSTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -152,14 +152,14 @@
 		3E67A19E543B5088DCA14944 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				E44D3EB430901F262C53FAA1 /* Pods-FlightManeuvers.debug.xcconfig */,
-				58AB7C9A911A4899C2A91D6C /* Pods-FlightManeuvers.release.xcconfig */,
-				6D8DF16C952C62D2FDF5B3BC /* Pods-FlightManeuvers-FlightManeuversTests.debug.xcconfig */,
-				E897B753982E4052C434E755 /* Pods-FlightManeuvers-FlightManeuversTests.release.xcconfig */,
-				4AC304218FBBBB3AED4AA908 /* Pods-FlightManeuvers-tvOS.debug.xcconfig */,
-				D7A38970BAF663F3BBDEB54F /* Pods-FlightManeuvers-tvOS.release.xcconfig */,
-				94A38C09389667D567CBAEF4 /* Pods-FlightManeuvers-tvOSTests.debug.xcconfig */,
-				F3CF5F4D035186C44FBE3AC2 /* Pods-FlightManeuvers-tvOSTests.release.xcconfig */,
+				54A7D513F5444331EEDE3E89 /* Pods-FlightManeuvers.debug.xcconfig */,
+				D2E03A086DFCAC806986FCED /* Pods-FlightManeuvers.release.xcconfig */,
+				66BEECA41A5E1379B570FA64 /* Pods-FlightManeuvers-FlightManeuversTests.debug.xcconfig */,
+				44EDB867E1A6B531F4C6F850 /* Pods-FlightManeuvers-FlightManeuversTests.release.xcconfig */,
+				C04D08C400EC7FCBB5359501 /* Pods-FlightManeuvers-tvOS.debug.xcconfig */,
+				037759B5FB75ED1B045F9781 /* Pods-FlightManeuvers-tvOS.release.xcconfig */,
+				34D77242B73E2D896F46A825 /* Pods-FlightManeuvers-tvOSTests.debug.xcconfig */,
+				44B8A1BDBE6AC4416E7E8E3C /* Pods-FlightManeuvers-tvOSTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -204,11 +204,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "FlightManeuversTests" */;
 			buildPhases = (
-				229463E6B8E1796D735D04E3 /* [CP] Check Pods Manifest.lock */,
+				C1CC74CDA6F8AB0B97DE573A /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				668418432B3D68DC36B8FEC6 /* [CP] Copy Pods Resources */,
+				AFF6ECE0E21022F3D5C52DF9 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -224,13 +224,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "FlightManeuvers" */;
 			buildPhases = (
-				A33FCCE7FCD88BAD9005B8A5 /* [CP] Check Pods Manifest.lock */,
+				F9F65C6145A3EA4EE10C44F2 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				F09B2437C6D8DAC6347EF78A /* [CP] Copy Pods Resources */,
+				ABEF12D59E8FB3A573200F9B /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -245,7 +245,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "FlightManeuvers-tvOS" */;
 			buildPhases = (
-				C4F5B778DE3C116116A36A40 /* [CP] Check Pods Manifest.lock */,
+				1EC20E5262E559EE0B5728AA /* [CP] Check Pods Manifest.lock */,
 				FD10A7F122414F3F0027D42C /* Start Packager */,
 				2D02E4771E0B4A5D006451C7 /* Sources */,
 				2D02E4781E0B4A5D006451C7 /* Frameworks */,
@@ -265,7 +265,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "FlightManeuvers-tvOSTests" */;
 			buildPhases = (
-				652356CC088C6F7C7855D2B7 /* [CP] Check Pods Manifest.lock */,
+				1C19562BA724947674C0B96C /* [CP] Check Pods Manifest.lock */,
 				2D02E48C1E0B4A5D006451C7 /* Sources */,
 				2D02E48D1E0B4A5D006451C7 /* Frameworks */,
 				2D02E48E1E0B4A5D006451C7 /* Resources */,
@@ -377,43 +377,7 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
 		};
-		229463E6B8E1796D735D04E3 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-FlightManeuvers-FlightManeuversTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		2D02E4CB1E0B4B27006451C7 /* Bundle React Native Code And Images */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Bundle React Native Code And Images";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
-		};
-		652356CC088C6F7C7855D2B7 /* [CP] Check Pods Manifest.lock */ = {
+		1C19562BA724947674C0B96C /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -435,7 +399,91 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		668418432B3D68DC36B8FEC6 /* [CP] Copy Pods Resources */ = {
+		1EC20E5262E559EE0B5728AA /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-FlightManeuvers-tvOS-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		2D02E4CB1E0B4B27006451C7 /* Bundle React Native Code And Images */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Bundle React Native Code And Images";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
+		};
+		ABEF12D59E8FB3A573200F9B /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FlightManeuvers/Pods-FlightManeuvers-resources.sh",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Entypo.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Feather.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Fontisto.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Foundation.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Octicons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Zocial.ttf",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AntDesign.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Entypo.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/EvilIcons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Feather.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome5_Brands.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome5_Regular.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome5_Solid.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Fontisto.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Foundation.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Ionicons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MaterialCommunityIcons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MaterialIcons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Octicons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SimpleLineIcons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Zocial.ttf",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FlightManeuvers/Pods-FlightManeuvers-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AFF6ECE0E21022F3D5C52DF9 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -483,7 +531,29 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FlightManeuvers-FlightManeuversTests/Pods-FlightManeuvers-FlightManeuversTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		A33FCCE7FCD88BAD9005B8A5 /* [CP] Check Pods Manifest.lock */ = {
+		C1CC74CDA6F8AB0B97DE573A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-FlightManeuvers-FlightManeuversTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F9F65C6145A3EA4EE10C44F2 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -503,76 +573,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		C4F5B778DE3C116116A36A40 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-FlightManeuvers-tvOS-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F09B2437C6D8DAC6347EF78A /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-FlightManeuvers/Pods-FlightManeuvers-resources.sh",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Entypo.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Feather.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Fontisto.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Foundation.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Octicons.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Zocial.ttf",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AntDesign.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Entypo.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/EvilIcons.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Feather.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome5_Brands.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome5_Regular.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome5_Solid.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Fontisto.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Foundation.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Ionicons.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MaterialCommunityIcons.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MaterialIcons.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Octicons.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SimpleLineIcons.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Zocial.ttf",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FlightManeuvers/Pods-FlightManeuvers-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
@@ -680,7 +680,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6D8DF16C952C62D2FDF5B3BC /* Pods-FlightManeuvers-FlightManeuversTests.debug.xcconfig */;
+			baseConfigurationReference = 66BEECA41A5E1379B570FA64 /* Pods-FlightManeuvers-FlightManeuversTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -703,7 +703,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E897B753982E4052C434E755 /* Pods-FlightManeuvers-FlightManeuversTests.release.xcconfig */;
+			baseConfigurationReference = 44EDB867E1A6B531F4C6F850 /* Pods-FlightManeuvers-FlightManeuversTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -723,7 +723,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E44D3EB430901F262C53FAA1 /* Pods-FlightManeuvers.debug.xcconfig */;
+			baseConfigurationReference = 54A7D513F5444331EEDE3E89 /* Pods-FlightManeuvers.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -752,7 +752,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 58AB7C9A911A4899C2A91D6C /* Pods-FlightManeuvers.release.xcconfig */;
+			baseConfigurationReference = D2E03A086DFCAC806986FCED /* Pods-FlightManeuvers.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -775,7 +775,7 @@
 		};
 		2D02E4971E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4AC304218FBBBB3AED4AA908 /* Pods-FlightManeuvers-tvOS.debug.xcconfig */;
+			baseConfigurationReference = C04D08C400EC7FCBB5359501 /* Pods-FlightManeuvers-tvOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -803,7 +803,7 @@
 		};
 		2D02E4981E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D7A38970BAF663F3BBDEB54F /* Pods-FlightManeuvers-tvOS.release.xcconfig */;
+			baseConfigurationReference = 037759B5FB75ED1B045F9781 /* Pods-FlightManeuvers-tvOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -831,7 +831,7 @@
 		};
 		2D02E4991E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 94A38C09389667D567CBAEF4 /* Pods-FlightManeuvers-tvOSTests.debug.xcconfig */;
+			baseConfigurationReference = 34D77242B73E2D896F46A825 /* Pods-FlightManeuvers-tvOSTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -858,7 +858,7 @@
 		};
 		2D02E49A1E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F3CF5F4D035186C44FBE3AC2 /* Pods-FlightManeuvers-tvOSTests.release.xcconfig */;
+			baseConfigurationReference = 44B8A1BDBE6AC4416E7E8E3C /* Pods-FlightManeuvers-tvOSTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
