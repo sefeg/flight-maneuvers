@@ -7,6 +7,7 @@ import React from 'react';
 import { View, Text, StyleSheet, Button } from 'react-native';
 import PropTypes from 'prop-types';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
+import { connect } from 'react-redux';
 
 /**
  * @param {Number} accuracy
@@ -48,11 +49,11 @@ function getFrequencyDescriptor(frequency) {
   }
 }
 
-export default function ManeuverOverviewItem(props) {
-  let accuracyDescriptor = getAccuracyDescriptor(props.accuracy);
-  let frequencyDescriptor = getFrequencyDescriptor(props.frequency);
+function ManeuverOverviewItem({ userPerformance }) {
+  let accuracyDescriptor = getAccuracyDescriptor(userPerformance.accuracy);
+  let frequencyDescriptor = getFrequencyDescriptor(userPerformance.frequency);
 
-  const statusValue = props.overallTrainingStatus;
+  const statusValue = userPerformance.overallTrainingStatus;
 
   return (
     <View style={styles.itemContainer}>
@@ -71,12 +72,12 @@ export default function ManeuverOverviewItem(props) {
       </AnimatedCircularProgress>
 
       <View style={styles.maneuverInfoContainer}>
-        <Text style={styles.maneuverTitle}>{props.maneuverTitle}</Text>
+        <Text style={styles.maneuverTitle}>{userPerformance.maneuverTitle}</Text>
         <Text>
-          Accuracy: {accuracyDescriptor} ({props.accuracy} %)
+          Accuracy: {accuracyDescriptor} ({userPerformance.accuracy} %)
         </Text>
         <Text>
-          Frequency: {frequencyDescriptor} ({props.frequency} last month)
+          Frequency: {frequencyDescriptor} ({userPerformance.frequency} last month)
         </Text>
       </View>
     </View>
@@ -109,18 +110,62 @@ ManeuverOverviewItem.propTypes = {
    */
   maneuverTitle: PropTypes.string.isRequired,
 
-  /**
-   * Overall accuracy of the maneuver, in percentage (0 - 100)
-   */
-  accuracy: PropTypes.number.isRequired,
+  userPerformance: PropTypes.shape({
 
-  /**
+    maneuverTitle: PropTypes.string.isRequired,
+    /**
+     * Overall accuracy of the maneuver, in percentage (0 - 100)
+     */
+    accuracy: PropTypes.number.isRequired,
+    /**
    * Indicates the number of completed maneuvers over the past month.
    */
-  frequency: PropTypes.number.isRequired,
-
-  /**
+    frequency: PropTypes.number.isRequired,
+    /**
    * The overall maneuver competence in percent (0 - 100)
    */
-  overallTrainingStatus: PropTypes.number.isRequired,
+    overallTrainingStatus: PropTypes.number.isRequired,
+  }).isRequired,
 };
+
+function getUserPerformance(userPerformances, maneuverTitle) {
+
+  let accuracyTemp;
+  let frequencyTemp;
+  let overallTrainingStatusTemp;
+  let maneuverTitleTemp;
+
+  userPerformances.map(userPerformance => {
+    if (userPerformance.maneuver === maneuverTitle) {
+
+      console.log(userPerformance);
+      console.log("this is the damnn log");
+
+      maneuverTitleTemp = userPerformance.maneuver;
+      accuracyTemp = userPerformance.accuracy;
+      overallTrainingStatusTemp = userPerformance.overallTrainingStatus;
+      frequencyTemp = userPerformance.frequency;
+    }
+  });
+
+  return {
+    "maneuverTitle": maneuverTitleTemp,
+    "accuracy": accuracyTemp,
+    "frequency": frequencyTemp,
+    "overallTrainingStatus": overallTrainingStatusTemp,
+  };
+}
+
+function mapStateToProps(state, ownProps) {
+  return {
+    userPerformance: getUserPerformance(
+      state.userPerformances,
+      ownProps.maneuverTitle,
+    ),
+  };
+}
+
+const mapDispatchToProps = dispatch => ({
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ManeuverOverviewItem)

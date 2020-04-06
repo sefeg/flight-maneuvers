@@ -10,23 +10,33 @@ import maneuvers from "../atoms/ManeuverTypes";
 import ScreenBrief from "../components/ScreenBrief";
 import ManeuverOverviewItem from '../components/ManeuverOverviewItem';
 import RequirementsView from '../components/RequirementsView';
+import { connect } from 'react-redux';
 
-export default function ManeuverScreen({ route }) {
+function ManeuverScreen({ maneuverType }) {
 
-  const { maneuverType } = route.params;
+  const maneuverDescription = getManeuverDescription(maneuverType);
 
   return (
     <View style={styles.rootContainer}>
 
       <ManeuverOverviewItem style={styles.overviewContainer}
-        maneuverTitle={maneuverType} accuracy={80} frequency={9} overallTrainingStatus={83} />
+        maneuverTitle={maneuverType} />
       <ScreenBrief briefTitle={maneuverType}
-        briefDescription="Regularly practice controlled and accurate steep turns. They can come in handy when you get into a busy or unforseen situation where you have to change course rapidly."
+        briefDescription={maneuverDescription}
         callToAction="Fullfill the requirements to start training."
       />
       <RequirementsView />
     </View>
   );
+}
+
+function getManeuverDescription(maneuverType) {
+
+  if (maneuverType == maneuvers.STEEP_TURNS) {
+    return "Regularly practice controlled and accurate steep turns. They can come in handy when you get into a busy or unforseen situation where you have to change course rapidly.";
+  } else if (maneuverType == maneuvers.POWER_ON_STALLS) {
+    return "Practice Power ON stalls to know how to react when a stall occurs during take off.";
+  }
 }
 
 const styles = StyleSheet.create({
@@ -42,4 +52,14 @@ const styles = StyleSheet.create({
 });
 
 ManeuverScreen.propTypes = {
+  maneuverType: PropTypes.string.isRequired,
 };
+
+const mapStateToProps = state => ({
+  maneuverType: state.maneuverSelection,
+});
+
+const mapDispatchToProps = dispatch => ({
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ManeuverScreen)

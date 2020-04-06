@@ -14,12 +14,17 @@ import {
   Button,
   TouchableOpacity,
 } from 'react-native';
+import PropTypes from "prop-types";
+
+import { setSelectedManeuever } from "../redux/actions";
 
 import ScreenBrief from '../components/ScreenBrief';
 import ManeuverOverviewItem from '../components/ManeuverOverviewItem';
 import maneuvers from '../atoms/ManeuverTypes';
+import { connect } from 'react-redux';
 
-export default function BriefingRoom({ navigation }) {
+function BriefingRoom({ navigation, navigateToManeuver }) {
+
   return (
     <View style={styles.rootContainer}>
       <ScreenBrief
@@ -29,28 +34,31 @@ export default function BriefingRoom({ navigation }) {
         callToAction="Select a maneuver to start training."
       />
       <View style={styles.maneuverListContainer}>
-        <TouchableOpacity
-          onPress={() =>
-            navigation.navigate('ManeuverScreen', { maneuverType: maneuvers.steepTurns })
-          }>
+        <TouchableOpacity onPress={() => navigateToManeuverScreen(maneuvers.STEEP_TURNS)}>
           <ManeuverOverviewItem
-            maneuverTitle={maneuvers.steepTurns}
-            accuracy={80}
-            frequency={9}
-            overallTrainingStatus={83}
+            maneuverTitle={maneuvers.STEEP_TURNS}
           />
         </TouchableOpacity>
 
-        <ManeuverOverviewItem
-          maneuverTitle={maneuvers.powerOnStalls}
-          accuracy={75}
-          frequency={3}
-          overallTrainingStatus={71}
-        />
+        <TouchableOpacity onPress={() => navigateToManeuverScreen(maneuvers.POWER_ON_STALLS)}>
+          <ManeuverOverviewItem
+            maneuverTitle={maneuvers.POWER_ON_STALLS}
+          />
+        </TouchableOpacity>
       </View>
     </View>
   );
+
+  function navigateToManeuverScreen(maneuver) {
+
+    navigateToManeuver(maneuver);
+    navigation.navigate('ManeuverScreen');
+  }
 }
+
+BriefingRoom.propTypes = {
+  navigateToManeuver: PropTypes.func.isRequired,
+};
 
 const styles = StyleSheet.create({
   rootContainer: {
@@ -60,3 +68,12 @@ const styles = StyleSheet.create({
     paddingTop: 20,
   },
 });
+
+const mapStateToProps = state => ({
+});
+
+const mapDispatchToProps = dispatch => ({
+  navigateToManeuver: maneuver => dispatch(setSelectedManeuever(maneuver)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(BriefingRoom)

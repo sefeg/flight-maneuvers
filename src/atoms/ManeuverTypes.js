@@ -3,8 +3,8 @@
  */
 
 const maneuvers = {
-    steepTurns: "Steep turns",
-    powerOnStalls: "Power ON stalls",
+    STEEP_TURNS: "Steep turns",
+    POWER_ON_STALLS: "Power ON stalls",
 }
 
 export default maneuvers;
