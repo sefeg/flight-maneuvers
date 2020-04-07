@@ -16,7 +16,7 @@ import {
 } from 'react-native';
 import PropTypes from "prop-types";
 
-import { setSelectedManeuever } from "../redux/actions";
+import { setSelectedManeuever } from "../actions/actions";
 
 import ScreenBrief from '../components/ScreenBrief';
 import ManeuverOverviewItem from '../components/ManeuverOverviewItem';

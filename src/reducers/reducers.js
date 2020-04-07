@@ -5,7 +5,7 @@ import {
     SIGNAL_RPOS_DATA_RECEIVED,
     COMPLETED_MANEUVER_PERFORMANCE,
     maneuverSelectionStatus,
-} from './actions';
+} from '../actions/actions';
 import maneuvers from '../atoms/ManeuverTypes';
 
 function maneuverSelection(state = maneuverSelectionStatus.NONE_SELECTED, action) {
@@ -20,15 +20,19 @@ function maneuverSelection(state = maneuverSelectionStatus.NONE_SELECTED, action
     }
 }
 
-function flightData(state = { heading: 0, elevASL: 0, elevAGL: 0, roll: 0 }, action) {
+function flightData(
+    state = { heading: 0, elevASL: 0, elevAGL: 0, roll: 0 },
+    action,
+) {
 
     switch (action.type) {
         case SIGNAL_RPOS_DATA_RECEIVED:
+
             return Object.assign({}, flightData, {
-                heading: heading,
-                elevASL: elevASL,
-                elevAGL: elevAGL,
-                roll: roll,
+                heading: action.heading,
+                elevASL: action.elevASL,
+                elevAGL: action.elevAGL,
+                roll: action.roll,
             });
         default:
             return state;

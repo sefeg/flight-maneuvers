@@ -11,6 +11,7 @@ import ScreenBrief from "../components/ScreenBrief";
 import ManeuverOverviewItem from '../components/ManeuverOverviewItem';
 import RequirementsView from '../components/RequirementsView';
 import { connect } from 'react-redux';
+import RequirementsContainer from "../container/RequirementsContainer";
 
 function ManeuverScreen({ maneuverType }) {
 
@@ -25,7 +26,8 @@ function ManeuverScreen({ maneuverType }) {
         briefDescription={maneuverDescription}
         callToAction="Fullfill the requirements to start training."
       />
-      <RequirementsView />
+
+      <RequirementsContainer />
     </View>
   );
 }

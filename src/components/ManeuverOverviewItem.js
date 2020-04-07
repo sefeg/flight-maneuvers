@@ -137,10 +137,6 @@ function getUserPerformance(userPerformances, maneuverTitle) {
 
   userPerformances.map(userPerformance => {
     if (userPerformance.maneuver === maneuverTitle) {
-
-      console.log(userPerformance);
-      console.log("this is the damnn log");
-
       maneuverTitleTemp = userPerformance.maneuver;
       accuracyTemp = userPerformance.accuracy;
       overallTrainingStatusTemp = userPerformance.overallTrainingStatus;

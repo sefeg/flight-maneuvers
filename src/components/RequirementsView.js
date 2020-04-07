@@ -4,23 +4,28 @@
 
 import React from "react";
 import { View, Text, StyleSheet, Image } from 'react-native';
+import PropTypes from "prop-types";
 
-export default function RequirementsView(props) {
+export default function RequirementsView(conditions) {
+
+
     return (
-        <View style={styles.rootContainer}>
+        < View style={styles.rootContainer} >
             <Text style={styles.title}>Requirements</Text>
-            <View style={styles.requirementsItemContainer}>
-                <Image style={styles.statusIcon} source={require('../assets/icons/checkmark.png')} />
-                <Text>Altitude >= 2.500 AGL</Text>
-            </View>
-            <View style={styles.requirementsItemContainer}>
-                <Image style={styles.statusIcon} source={require('../assets/icons/fail.png')} />
-                <Text>KIAS: 95 knots (+/- 5%)</Text>
-            </View>
-            <View style={styles.requirementsItemContainer}>
-                <Image style={styles.statusIcon} source={require('../assets/icons/fail.png')} />
-                <Text>2300 RPM (+/- 5%)</Text>
-            </View>
+            {
+                conditions.conditions.map(condition => {
+                    return (
+                        <View style={styles.requirementsItemContainer}>
+                            {condition.fulfilled ? (
+                                <Image style={styles.statusIcon} source={require('../assets/icons/checkmark.png')} />
+                            ) : (
+                                    <Image style={styles.statusIcon} source={require('../assets/icons/fail.png')} />
+                                )}
+                            <Text>{condition.description}</Text>
+                        </View>
+                    )
+                })
+            }
             <Text style={styles.criteriaText}>Match the criteria before starting the maneuver.</Text>
         </View>
     );
@@ -53,4 +58,11 @@ const styles = StyleSheet.create({
     }
 });
 
-RequirementsView.propTypes = {};
+RequirementsView.propTypes = {
+    conditions: PropTypes.arrayOf(
+        PropTypes.shape({
+            description: PropTypes.string.isRequired,
+            fulfilled: PropTypes.bool.isRequired,
+        }).isRequired,
+    ).isRequired,
+};
