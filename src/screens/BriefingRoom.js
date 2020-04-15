@@ -22,11 +22,13 @@ import ScreenBrief from '../components/ScreenBrief';
 import ManeuverOverviewItem from '../components/ManeuverOverviewItem';
 import maneuvers from '../atoms/ManeuverTypes';
 import { connect } from 'react-redux';
+import ConnectionStatus from '../components/ConnectionStatus';
 
 function BriefingRoom({ navigation, navigateToManeuver }) {
 
   return (
     <View style={styles.rootContainer}>
+      <ConnectionStatus />
       <ScreenBrief
         briefTitle="BriefingRoom"
         briefDescription="It is important that you regularly train common flight maneuvers. 
