@@ -4,9 +4,14 @@ import {
     SET_MANEUVER_TERMINATED,
     SIGNAL_RPOS_DATA_RECEIVED,
     COMPLETED_MANEUVER_PERFORMANCE,
+    SET_DATA_PROVIDER,
+    CONNECTION_STATUS_CHANGED,
+    connectionStatus,
     maneuverSelectionStatus,
 } from '../actions/actions';
 import maneuvers from '../atoms/ManeuverTypes';
+import dataProviders from '../atoms/DataProviders';
+import ConnectionStatus from '../components/ConnectionStatus';
 
 function maneuverSelection(state = maneuverSelectionStatus.NONE_SELECTED, action) {
 
@@ -19,6 +24,36 @@ function maneuverSelection(state = maneuverSelectionStatus.NONE_SELECTED, action
             return state;
     }
 }
+
+function dataProvider(state = {
+    dataProvider: dataProviders.XPLANE, connectionStatus: connectionStatus.NOT_CONNECTED,
+    configurations: { provider: dataProviders.XPLANE, automatedSearch: false, ipAddress: "192.168.1.26", port: 49000 },
+},
+    action) {
+
+    switch (action.type) {
+        case SET_DATA_PROVIDER:
+
+            if (state.dataProvider === action.dataProvider) {
+                return state;
+            } else {
+                return Object.assign({}, dataProvider, {
+                    dataProvider: action.dataProvider,
+                    connectionStatus: connectionStatus.NOT_CONNECTED,
+                });
+            }
+        case CONNECTION_STATUS_CHANGED:
+
+            return Object.assign({}, dataProvider, {
+                dataProvider: state.dataProvider,
+                connectionStatus: action.connectionStatus,
+            });
+        default:
+            return state;
+    }
+}
+
+
 
 function flightData(
     state = { heading: 0, elevASL: 0, elevAGL: 0, roll: 0 },
@@ -83,6 +118,7 @@ const maneuversAppReducer = combineReducers({
     maneuverSelection,
     flightData,
     userPerformances,
+    dataProvider,
 });
 
 export default maneuversAppReducer;

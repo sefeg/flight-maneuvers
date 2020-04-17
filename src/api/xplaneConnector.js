@@ -29,14 +29,21 @@ export default class XPlaneConnector extends React.Component {
 
         this.store = props.store;
 
+        this.connectToXPlaneServer();
+
         this.bindToPort();
         this.requestXPlaneOutput(props.remoteAddress);
         this.listenToXPLANEOutput();
+
     }
 
 
     render() {
         return null;
+    }
+
+    connectToXPlaneServer() {
+
     }
 
     listenToXPLANEOutput() {

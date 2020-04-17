@@ -12,6 +12,7 @@ import ManeuverOverviewItem from '../components/ManeuverOverviewItem';
 import RequirementsView from '../components/RequirementsView';
 import { connect } from 'react-redux';
 import RequirementsContainer from "../container/RequirementsContainer";
+import ConnectionContainer from '../container/ConnectionContainer';
 
 function ManeuverScreen({ maneuverType }) {
 
@@ -19,6 +20,8 @@ function ManeuverScreen({ maneuverType }) {
 
   return (
     <View style={styles.rootContainer}>
+
+      <ConnectionContainer />
 
       <ManeuverOverviewItem style={styles.overviewContainer}
         maneuverTitle={maneuverType} />

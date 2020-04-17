@@ -14,13 +14,29 @@ export const SIGNAL_RPOS_DATA_RECEIVED = 'SIGNAL_RPOS_DATA_RECEIVED';
 
 export const COMPLETED_MANEUVER_PERFORMANCE = 'COMPLETED_MANEUVER_PERFORMANCE';
 
+export const SET_DATA_PROVIDER = 'SET_DATA_PROVIDER';
+export const CONNECTION_STATUS_CHANGED = 'CONNECTION_STATUS_CHANGED';
+
 export const maneuverSelectionStatus = {
     NONE_SELECTED: 'NONE_SELECTED',
+};
+
+export const connectionStatus = {
+    NOT_CONNECTED: 'NOT_CONNECTED',
+    CONNECTED: 'CONNECTED',
 };
 
 /*
  * Action creators
  */
+
+export function setDataProvider(dataProvider) {
+    return { type: SET_DATA_PROVIDER, dataProvider };
+}
+
+export function connectionStatusChanged() {
+    return { type: CONNECTION_STATUS_CHANGED, connectionStatus };
+}
 
 export function setSelectedManeuever(maneuver) {
     return { type: SET_SELECTED_MANEUVER, maneuver };

@@ -18,7 +18,9 @@ import BriefingRoom from './screens/BriefingRoom';
 import ManeuverScreen from './screens/ManeuverScreen';
 import XPlaneConnector from './api/XPlaneConnector';
 
-import { signalRPOSDataReceived } from "../src/actions/actions";
+import DataProviderScreen from './screens/DataProviderScreen';
+
+import KeepAwake from 'react-native-keep-awake';
 
 const Stack = createStackNavigator();
 
@@ -30,17 +32,20 @@ function App() {
   const store = createStore(maneuversAppReducer);
   console.log(store.getState());
 
+  // KeepAwake.activate(); pod install needed? https://www.npmjs.com/package/react-native-keep-awake 
+
   return (
     <Provider store={store}>
       <XPlaneConnector remoteAddress="192.168.1.26" store={store} />
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName="BriefingRoom"
+          initialRouteName="ProviderSelectionContainer"
           screenOptions={{
             title: 'FlightManeuvers',
           }}>
           <Stack.Screen name="BriefingRoom" component={BriefingRoom} />
           <Stack.Screen name="ManeuverScreen" component={ManeuverScreen} />
+          <Stack.Screen name="DataProviderScreen" component={DataProviderScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
