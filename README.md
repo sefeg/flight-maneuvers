@@ -20,3 +20,9 @@ Get the steep turns maneuver fully working.
 - Provide rich performance analysis and comparison
 - Conduct extensive user tests with pilots and non-pilots
 
+## How it currently looks like
+
+Shows the app set to the *steep turn* maneuver. Flight Maneuvers receives live data from X-Plane and updates the status of the maneuver requirements accordingly.
+
+![Image description](documentation/static_demo.png)
+
