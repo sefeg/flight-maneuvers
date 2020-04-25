@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import {
     SET_SELECTED_MANEUVER,
-    SET_MANEUVER_TERMINATED,
+    RESET_CURRENT_MANEUVER,
     SIGNAL_RPOS_DATA_RECEIVED,
     SIGNAL_DATAREF_RECEIVED,
     COMPLETED_MANEUVER_PERFORMANCE,
@@ -9,18 +9,56 @@ import {
     CONNECTION_STATUS_CHANGED,
     connectionStatus,
     maneuverSelectionStatus,
+    MANEUVER_REQUIREMENTS_NOT_MET,
+    MANEUVER_REQUIREMENTS_MET,
+    START_MANEUVER,
+    STOP_MANEUVER
 } from '../actions/actions';
 import maneuvers from '../atoms/ManeuverTypes';
 import dataProviders from '../atoms/DataProviders';
 import dataRefs from "../atoms/XPlaneDataRefs";
 
-function maneuverSelection(state = maneuverSelectionStatus.NONE_SELECTED, action) {
+function maneuver(state = {
+    maneuverSelected: maneuverSelectionStatus.NONE_SELECTED,
+    maneuverRequirementsFulfilled: false,
+    maneuverStarted: false,
+}, action) {
 
     switch (action.type) {
         case SET_SELECTED_MANEUVER:
-            return action.maneuver;
-        case SET_MANEUVER_TERMINATED:
-            return maneuverSelectionStatus.NONE_SELECTED;
+            return {
+                ...state,
+                maneuverSelected: action.maneuver,
+            };
+        case RESET_CURRENT_MANEUVER:
+            return {
+                maneuverSelected: maneuverSelectionStatus.NONE_SELECTED,
+                maneuverRequirementsFulfilled: false,
+                maneuverStarted: false,
+            };
+        case MANEUVER_REQUIREMENTS_MET:
+
+            console.log("Fulfilled maneuver reqs");
+
+            return {
+                ...state,
+                maneuverRequirementsFulfilled: true,
+            };
+        case MANEUVER_REQUIREMENTS_NOT_MET:
+            return {
+                ...state,
+                maneuverRequirementsFulfilled: false,
+            };
+        case START_MANEUVER:
+            return {
+                ...state,
+                maneuverStarted: true,
+            };
+        case STOP_MANEUVER:
+            return {
+                ...state,
+                maneuverStarted: false,
+            }
         default:
             return state;
     }
@@ -135,7 +173,7 @@ function userPerformances(state, action) {
 }
 
 const maneuversAppReducer = combineReducers({
-    maneuverSelection,
+    maneuver,
     flightData,
     userPerformances,
     dataProvider,

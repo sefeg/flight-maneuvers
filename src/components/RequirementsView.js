@@ -8,12 +8,13 @@ import PropTypes from "prop-types";
 
 export default function RequirementsView(conditions) {
 
+    console.log(conditions);
 
     return (
         < View style={styles.rootContainer} >
             <Text style={styles.title}>Requirements</Text>
             {
-                conditions.conditions.map(condition => {
+                conditions.individualRequirements.map(condition => {
                     return (
                         <View style={styles.requirementsItemContainer}>
                             {condition.fulfilled ? (

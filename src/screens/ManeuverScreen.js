@@ -13,8 +13,9 @@ import RequirementsView from '../components/RequirementsView';
 import { connect } from 'react-redux';
 import RequirementsContainer from "../container/RequirementsContainer";
 import ConnectionContainer from '../container/ConnectionContainer';
+import { getManeuverRequierements } from "../selectors/RequirementsCalculator";
 
-function ManeuverScreen({ maneuverType }) {
+function ManeuverScreen({ maneuverType, allRequirementsFulfilled }) {
 
   const maneuverDescription = getManeuverDescription(maneuverType);
 
@@ -29,8 +30,14 @@ function ManeuverScreen({ maneuverType }) {
         briefDescription={maneuverDescription}
         callToAction="Fullfill the requirements to start training."
       />
-
-      <RequirementsContainer />
+      {allRequirementsFulfilled ? (
+        <ScreenBrief briefTitle={maneuverType}
+          briefDescription={maneuverDescription}
+          callToAction="Everything fulfilled"
+        />
+      ) : (
+          <RequirementsContainer />
+        )}
     </View>
   );
 }
@@ -58,10 +65,12 @@ const styles = StyleSheet.create({
 
 ManeuverScreen.propTypes = {
   maneuverType: PropTypes.string.isRequired,
+  allRequirementsFulfilled: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = state => ({
-  maneuverType: state.maneuverSelection,
+  maneuverType: state.maneuver.maneuverSelected,
+  allRequirementsFulfilled: getManeuverRequierements(state).allRequirementsFulfilled,
 });
 
 const mapDispatchToProps = dispatch => ({
