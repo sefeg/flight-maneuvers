@@ -11,6 +11,7 @@ export const SET_SELECTED_MANEUVER = 'SET_SELECTED_MANEUVER';
 export const SET_MANEUVER_TERMINATED = 'SET_MANEUVER_TERMINATED';
 
 export const SIGNAL_RPOS_DATA_RECEIVED = 'SIGNAL_RPOS_DATA_RECEIVED';
+export const SIGNAL_DATAREF_RECEIVED = 'SIGNAL_DATAREF_RECEIVED';
 
 export const COMPLETED_MANEUVER_PERFORMANCE = 'COMPLETED_MANEUVER_PERFORMANCE';
 
@@ -34,9 +35,10 @@ export function setDataProvider(dataProvider) {
     return { type: SET_DATA_PROVIDER, dataProvider };
 }
 
-export function connectionStatusChanged() {
+export function connectionStatusChanged(connectionStatus) {
     return { type: CONNECTION_STATUS_CHANGED, connectionStatus };
 }
+
 
 export function setSelectedManeuever(maneuver) {
     return { type: SET_SELECTED_MANEUVER, maneuver };
@@ -44,6 +46,10 @@ export function setSelectedManeuever(maneuver) {
 
 export function setManeuverTerminated() {
     return { type: SET_MANEUVER_TERMINATED };
+}
+
+export function singalDataRefReceived(dataref, value) {
+    return { type: SIGNAL_DATAREF_RECEIVED, dataref, value };
 }
 
 export function signalRPOSDataReceived(heading, elevASL, elevAGL, roll) {

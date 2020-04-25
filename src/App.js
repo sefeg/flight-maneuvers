@@ -20,8 +20,6 @@ import XPlaneConnector from './api/XPlaneConnector';
 
 import DataProviderScreen from './screens/DataProviderScreen';
 
-import KeepAwake from 'react-native-keep-awake';
-
 const Stack = createStackNavigator();
 
 function App() {
@@ -31,8 +29,6 @@ function App() {
   console.log('Create Redux store');
   const store = createStore(maneuversAppReducer);
   console.log(store.getState());
-
-  // KeepAwake.activate(); pod install needed? https://www.npmjs.com/package/react-native-keep-awake 
 
   return (
     <Provider store={store}>

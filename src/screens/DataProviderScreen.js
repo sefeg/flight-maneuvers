@@ -6,6 +6,7 @@ import ConnectionContainer from "../container/ConnectionContainer";
 import ScreenBrief from "../components/ScreenBrief";
 import ProviderItem from "../components/ProviderItem";
 import supportedSimulators from "../atoms/SupportedSimulators";
+import ProviderConfigurationsContainer from "../container/ProviderConfigurationsContainer";
 
 function DataProviderScreen({ navigation, currentDataProvider }) {
 
@@ -13,17 +14,27 @@ function DataProviderScreen({ navigation, currentDataProvider }) {
     const settingsTitle = currentDataProvider + " configuration";
 
     for (let [key, value] of Object.entries(supportedSimulators)) {
-        simulatedItems.push(<ProviderItem itemName={value} simulated={true} />);
+
+        console.log(value + " " + currentDataProvider);
+
+        simulatedItems.push(<ProviderItem itemName={value} simulated={true} currentItem={currentDataProvider === value} />);
     }
 
     return (
         <View style={styles.rootContainer}>
             <ConnectionContainer allowConfiguration={false} />
 
-            <ScreenBrief
+            {
+                /**
+                 
+                <ScreenBrief
                 briefTitle={settingsTitle}
                 briefDescription="The following configuration applies to this data provider:"
-            />
+                />
+
+                <ProviderConfigurationsContainer />
+                 */
+            }
 
             <View style={styles.providerListContainer}>
                 <ScreenBrief
@@ -35,7 +46,7 @@ function DataProviderScreen({ navigation, currentDataProvider }) {
                     {
                         simulatedItems
                     }
-                    <ProviderItem itemName="GPS" simulated={false} />
+                    <ProviderItem itemName="GPS (not yet supported)" simulated={false} currentItem={currentDataProvider === "GPS"} disableTouch={true} />
                 </View>
             </View>
         </View>
@@ -52,7 +63,7 @@ const styles = StyleSheet.create({
         marginTop: 10,
     },
     providerListContainer: {
-        marginTop: 50,
+        marginTop: 20,
     }
 });
 

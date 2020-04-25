@@ -8,6 +8,9 @@ import maneuvers from "../atoms/ManeuverTypes";
 function getRequirementsSteepTurns(flightData) {
 
     const elevAGLRequirement = flightData.elevAGL > 2500;
+    const speedRequirement = 90 <= flightData.indicatedAirspeed && flightData.indicatedAirspeed <= 100;
+    const rpmRequirement = 2185 <= flightData.engineRPM && flightData.engineRPM <= 2415;
+
 
     return [
         {
@@ -16,11 +19,11 @@ function getRequirementsSteepTurns(flightData) {
         },
         {
             "description": "KIAS: 95 knots (+/- 5%)",
-            "fulfilled": false,
+            "fulfilled": speedRequirement,
         },
         {
             "description": "2300 RPM (+/- 5%)",
-            "fulfilled": false,
+            "fulfilled": rpmRequirement,
         }
     ];
 }

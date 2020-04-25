@@ -29,6 +29,7 @@ function BriefingRoom({ navigation, navigateToManeuver }) {
 
   return (
     <View style={styles.rootContainer}>
+      <KeepAwake />
       <ConnectionContainer />
       <ScreenBrief
         briefTitle="BriefingRoom"

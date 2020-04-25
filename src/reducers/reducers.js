@@ -3,6 +3,7 @@ import {
     SET_SELECTED_MANEUVER,
     SET_MANEUVER_TERMINATED,
     SIGNAL_RPOS_DATA_RECEIVED,
+    SIGNAL_DATAREF_RECEIVED,
     COMPLETED_MANEUVER_PERFORMANCE,
     SET_DATA_PROVIDER,
     CONNECTION_STATUS_CHANGED,
@@ -11,7 +12,7 @@ import {
 } from '../actions/actions';
 import maneuvers from '../atoms/ManeuverTypes';
 import dataProviders from '../atoms/DataProviders';
-import ConnectionStatus from '../components/ConnectionStatus';
+import dataRefs from "../atoms/XPlaneDataRefs";
 
 function maneuverSelection(state = maneuverSelectionStatus.NONE_SELECTED, action) {
 
@@ -27,7 +28,7 @@ function maneuverSelection(state = maneuverSelectionStatus.NONE_SELECTED, action
 
 function dataProvider(state = {
     dataProvider: dataProviders.XPLANE, connectionStatus: connectionStatus.NOT_CONNECTED,
-    configurations: { provider: dataProviders.XPLANE, automatedSearch: false, ipAddress: "192.168.1.26", port: 49000 },
+    configurations: { provider: dataProviders.XPLANE, automated_search: false, iP_address: "192.168.1.26", port: 49000 },
 },
     action) {
 
@@ -56,19 +57,38 @@ function dataProvider(state = {
 
 
 function flightData(
-    state = { heading: 0, elevASL: 0, elevAGL: 0, roll: 0 },
+    state = { heading: 0, elevASL: 0, elevAGL: 0, roll: 0, engineRPM: 0, indicatedAirspeed: 0 },
     action,
 ) {
 
     switch (action.type) {
         case SIGNAL_RPOS_DATA_RECEIVED:
 
-            return Object.assign({}, flightData, {
+            return {
+                ...state,
                 heading: action.heading,
                 elevASL: action.elevASL,
                 elevAGL: action.elevAGL,
                 roll: action.roll,
+            }
+            return Object.assign({}, flightData, {
+                heading: action.heading,
+
             });
+        case SIGNAL_DATAREF_RECEIVED:
+            switch (action.dataref) {
+                case dataRefs.ENGINE_RPM:
+                    return {
+                        ...state,
+                        engineRPM: action.value,
+                    }
+                case dataRefs.INDICATED_AIRSPEED:
+                    return {
+                        ...state,
+                        indicatedAirspeed: action.value,
+                    }
+            }
+
         default:
             return state;
     }

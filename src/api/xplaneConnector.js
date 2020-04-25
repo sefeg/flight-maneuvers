@@ -7,34 +7,47 @@
 
 import React from 'react';
 import PropTypes from "prop-types";
-import { signalRPOSDataReceived } from "../actions/actions";
+import { signalRPOSDataReceived, singalDataRefReceived, connectionStatusChanged, connectionStatus } from "../actions/actions";
 
+import datarefs from "../atoms/XPlaneDataRefs";
 
 const xplaneMessages = {
-    GET_XPLANE_OUTPUT: "RPOS010",
+    GET_XPLANE_RPOS_OUTPUT: "RPOS05",
     STOP_XPLANE_OUTPUT: "RPOS000",
 };
 
 const dgram = require('react-native-udp');
 const socket = dgram.createSocket('udp4');
 var socketBound = false;
+
+var timestampLastMessageReceived = 0;
+var watchdogTimer;
+
+var currentlyConnected = false;
+var remoteAddress;
+
 var store;
 
-export default class XPlaneConnector extends React.Component {
+const RREF_REQUEST = {
+    INDICATED_AIRSPEED: { id: 1, dataref: "sim/flightmodel/position/indicated_airspeed", frequency: 5 },
+    ENGINE_RPM: { id: 2, dataref: "sim/cockpit2/engine/indicators/engine_speed_rpm[0]", frequency: 2 },
+};
 
+export default class XPlaneConnector extends React.Component {
 
     constructor(props) {
         super(props);
         console.log("Creating X-Plane connector");
 
         this.store = props.store;
-
-        this.connectToXPlaneServer();
+        this.remoteAddress = props.remoteAddress;
 
         this.bindToPort();
+
         this.requestXPlaneOutput(props.remoteAddress);
         this.listenToXPLANEOutput();
 
+        this.startConnectionWatchdog();
     }
 
 
@@ -42,27 +55,60 @@ export default class XPlaneConnector extends React.Component {
         return null;
     }
 
-    connectToXPlaneServer() {
+    /**
+     * Checks for incoming messages from X-Plane. If message reception is interrupted for more
+     * than one second, a change in the connection status is signaled. 
+     */
+    startConnectionWatchdog() {
+        watchdogTimer = setInterval(function () { this.checkConnectionStatus() }.bind(this), 500);
+    }
 
+    /**
+     * Cancels checks for X-Plane message reception.
+     */
+    stopConnectionWatchdog() {
+        clearInterval(watchdogTimer);
+    }
+
+    /**
+     * Informs about changes in the connection to X-Plane. Attempts to restart information flow
+     * in case of missing connection.
+     */
+    checkConnectionStatus() {
+        if (new Date().getTime() - timestampLastMessageReceived > 1000) {
+
+            if (currentlyConnected) {
+                currentlyConnected = false;
+                this.store.dispatch(connectionStatusChanged(connectionStatus.NOT_CONNECTED));
+            }
+
+            this.requestXPlaneOutput(this.remoteAddress);
+
+        } else {
+            if (!currentlyConnected) {
+                currentlyConnected = true;
+                this.store.dispatch(connectionStatusChanged(connectionStatus.CONNECTED));
+            }
+        }
     }
 
     listenToXPLANEOutput() {
 
         socket.on('message', (msg) => {
             this.analyzeXPLANEResponse(msg);
-        })
+            timestampLastMessageReceived = new Date().getTime();
+        });
     }
 
     /**
  * @param {*} port to which the sockets binds. Defaults to 49000.
  */
-    bindToPort(port = 49000) {
+    bindToPort(port = 49005) {
 
         if (!socketBound) {
             socket.bind(port);
             socketBound = true;
         }
-
     }
 
 
@@ -73,16 +119,18 @@ export default class XPlaneConnector extends React.Component {
      */
     analyzeXPLANEResponse(msg) {
 
-        this.analyzeRPOSMessage(msg);
+        const commandString = String.fromCharCode(msg[0], msg[1], msg[2], msg[3]);
 
-        //@todo get this working
-        /*switch (bytesToString(msg.slice(0, 4))) {
+        switch (commandString) {
             case "RPOS":
-                analyzeRPOSMessage(msg);
+                this.analyzeRPOSMessage(msg);
+                break;
+            case "RREF":
+                this.analyzeRREFMessage(msg);
                 break;
             default:
                 console.log("Received unknown message");
-        }*/
+        }
     }
 
     /**
@@ -114,16 +162,51 @@ export default class XPlaneConnector extends React.Component {
      * @param {*} remoteAddress of the host running X-Plane
      */
     requestXPlaneOutput(remoteAddress) {
-        this.sendMessage(xplaneMessages.GET_XPLANE_OUTPUT, remoteAddress);
+
+        this.sendMessage(xplaneMessages.GET_XPLANE_RPOS_OUTPUT, remoteAddress);
+
+        const iasREF = RREF_REQUEST.INDICATED_AIRSPEED;
+        this.sendRREFRequest(iasREF.frequency, iasREF.id, iasREF.dataref, remoteAddress);
+
+        const rpmREF = RREF_REQUEST.ENGINE_RPM;
+        this.sendRREFRequest(rpmREF.frequency, rpmREF.id, rpmREF.dataref, remoteAddress);
     }
 
     /**
-     * @param {*} message to be sent to the simulator
+     * Sends an RREF request to XPlane to request data from a specific dataframe.
+     * 
+     * @param {int} requestID, the unique ID for this request. Will be sent back by XPlane
+     * @param {string} dataRef, the name of the dataref to be read
+     */
+    sendRREFRequest(frequency, requestID, dataRef, remoteAddress) {
+
+        var buffer = new Uint8Array(413);
+
+        const command = "RREF0";
+
+        for (var i = 0, l = command.length; i < l; i++) {
+            buffer[i] = command.charCodeAt(i);
+        }
+
+        buffer[5] = frequency;
+        buffer[12] = requestID;
+
+        for (var i = 0, l = dataRef.length; i < l; i++) {
+            buffer[13 + i] = dataRef.charCodeAt(i);
+        }
+
+        socket.send(buffer, 0, buffer.length, 49000, remoteAddress, function (err) {
+            console.log('XPlane _RREF_ Data Request sent');
+        });
+    }
+    /**
+     * @param {string} message to be sent to the simulator
      */
     sendMessage(message, remoteAddress) {
-        var buf = this.toByteArray(message, remoteAddress);
 
-        socket.send(buf, 0, buf.length, 49000, remoteAddress, function (err) {
+        var buffer = this.toByteArray(message);
+
+        socket.send(buffer, 0, buffer.length, 49000, remoteAddress, function (err) {
             console.log('XPlane Data Request sent');
         });
     }
@@ -133,16 +216,7 @@ export default class XPlaneConnector extends React.Component {
         for (var i = 0, l = obj.length; i < l; i++) {
             uint[i] = obj.charCodeAt(i);
         }
-
         return new Uint8Array(uint);
-    }
-
-    bytesToString(byteArray) {
-        var result = "";
-        for (var i = 0; i < byteArray.length; i++) {
-            result += String.fromCharCode(parseInt(byteArray[i], 2));
-        }
-        return result;
     }
 
     /**
@@ -165,8 +239,22 @@ export default class XPlaneConnector extends React.Component {
         let aslInFeet = elevationASL * feetConversion;
 
         this.store.dispatch(signalRPOSDataReceived(heading = heading, elevASL = aslInFeet, elevAGL = aglInFeet, roll = roll));
-
     }
 
+    analyzeRREFMessage(msg) {
+
+        const id = msg[8];
+        const value = this.constructFloat(msg.slice(9, 13));
+
+        switch (id) {
+            case RREF_REQUEST.INDICATED_AIRSPEED.id:
+                this.store.dispatch(singalDataRefReceived(datarefs.INDICATED_AIRSPEED, value));
+                break;
+            case RREF_REQUEST.ENGINE_RPM.id:
+                this.store.dispatch(singalDataRefReceived(datarefs.ENGINE_RPM, value));
+                break;
+            default: console.log("Received unknown RREF dataframe");
+        }
+    }
 
 }

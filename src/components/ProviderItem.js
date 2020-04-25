@@ -8,18 +8,22 @@ import { setDataProvider } from "../actions/actions";
 import dataProviders from "../atoms/DataProviders";
 
 
-function ProviderItem({ itemName, simulated, selectedProvider, disableTouch = false }) {
+function ProviderItem({ itemName, simulated, selectedProvider, disableTouch = false, currentItem = false }) {
 
+    let displayTitle = itemName;
+
+    if (currentItem) {
+        displayTitle += " (current provider)";
+    }
     return (
-        <TouchableOpacity onPress={() => selectedProvider(itemName)} disabled={disableTouch}>
+        <TouchableOpacity onPress={() => selectedProvider(itemName)} disabled={disableTouch | currentItem}>
             <View style={styles.overallContainer}>
                 {simulated ? (
                     <FontAwesomeIcon icon={faGamepad} size={20} color="gray" style={styles.iconContainer} />
-
                 ) : (
                         <FontAwesomeIcon icon={faLocationArrow} size={20} color="gray" style={styles.iconContainer} />
                     )}
-                <Text>{itemName}</Text>
+                <Text>{displayTitle}</Text>
             </View>
         </TouchableOpacity>
     );
@@ -30,6 +34,7 @@ ProviderItem.propTypes = {
     simulated: PropTypes.bool.isRequired,
     selectedProvider: PropTypes.func.isRequired,
     disableTouch: PropTypes.bool,
+    currentItem: PropTypes.bool,
 };
 
 const styles = StyleSheet.create({

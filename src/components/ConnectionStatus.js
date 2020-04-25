@@ -14,7 +14,7 @@ export default function ConnectionStatus({ dataProvider, connected, allowConfigu
         <TouchableOpacity
             onPress={() => navigation.navigate('DataProviderScreen')} disabled={!allowConfiguration}>
 
-            <View style={styles.overallContainer}>
+            <View style={getContainerStyle(connected)}>
 
                 <View style={styles.statusDescriptionContainer}>
                     {
@@ -45,18 +45,36 @@ export default function ConnectionStatus({ dataProvider, connected, allowConfigu
     );
 }
 
+function getContainerStyle(connected) {
+
+    if (connected) {
+        return {
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            padding: 10,
+            alignItems: 'center',
+            backgroundColor: 'rgb(236, 250, 240)',
+            borderRadius: 5,
+            borderColor: '#0D953A',
+            borderWidth: 2,
+            marginBottom: 15,
+        }
+    } else {
+        return {
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            padding: 10,
+            alignItems: 'center',
+            backgroundColor: 'rgb(255, 204, 204)',
+            borderRadius: 5,
+            borderColor: 'red',
+            borderWidth: 2,
+            marginBottom: 15,
+        }
+    }
+}
+
 const styles = StyleSheet.create({
-    overallContainer: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        padding: 10,
-        alignItems: 'center',
-        backgroundColor: 'white',
-        borderRadius: 5,
-        borderColor: 'green',
-        borderWidth: 2,
-        marginBottom: 15,
-    },
     statusDescriptionContainer: {
         flexDirection: 'row',
         alignItems: 'center',
