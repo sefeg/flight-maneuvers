@@ -11,7 +11,8 @@ Connection to the X-Plane simulator is working. Tested with the iOS app on iOS 1
 
 ## Next steps
 
-Get the steep turns maneuver fully working.
+- Get the steep turns maneuver fully working.
+- Implement automated network search for the X-Plane server
 
 ## Mid-term goals
 

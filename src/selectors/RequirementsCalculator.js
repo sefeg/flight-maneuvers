@@ -10,27 +10,8 @@ export const getManeuverRequierements = createSelector(
 
         if (selectedManeuver === maneuverTypes.STEEP_TURNS) {
 
-            const elevAGLRequirement = flightData.elevAGL > 2500;
-            const speedRequirement = 90 <= flightData.indicatedAirspeed && flightData.indicatedAirspeed <= 100;
-            const rpmRequirement = 2185 <= flightData.engineRPM && flightData.engineRPM <= 2415;
+            return calculateSteepTurnRequirements(flightData.elevAGL, flightData.indicatedAirspeed, flightData.engineRPM);
 
-            return {
-                "allRequirementsFulfilled": elevAGLRequirement && speedRequirement && rpmRequirement,
-                "individualRequirements": [
-                    {
-                        "description": "Altitude >= 2.500 AGL",
-                        "fulfilled": elevAGLRequirement,
-                    },
-                    {
-                        "description": "KIAS: 95 knots (+/- 5%)",
-                        "fulfilled": speedRequirement,
-                    },
-                    {
-                        "description": "2300 RPM (+/- 5%)",
-                        "fulfilled": rpmRequirement,
-                    }
-                ]
-            };
         } else {
             return {
                 "allRequirementsFulfilled": false,
@@ -38,3 +19,28 @@ export const getManeuverRequierements = createSelector(
         }
     }
 )
+
+function calculateSteepTurnRequirements(elevAGL, indicatedAirspeed, engineRPM) {
+
+    const elevAGLRequirement = elevAGL > 2500;
+    const speedRequirement = 90 <= indicatedAirspeed && indicatedAirspeed <= 100;
+    const rpmRequirement = 2185 <= engineRPM && engineRPM <= 2415;
+
+    return {
+        "allRequirementsFulfilled": elevAGLRequirement && speedRequirement && rpmRequirement,
+        "individualRequirements": [
+            {
+                "description": "Altitude >= 2.500 AGL",
+                "fulfilled": elevAGLRequirement,
+            },
+            {
+                "description": "KIAS: 95 knots (+/- 5%)",
+                "fulfilled": speedRequirement,
+            },
+            {
+                "description": "2300 RPM (+/- 5%)",
+                "fulfilled": rpmRequirement,
+            }
+        ]
+    };
+}

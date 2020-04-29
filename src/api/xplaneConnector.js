@@ -12,7 +12,7 @@ import { signalRPOSDataReceived, singalDataRefReceived, connectionStatusChanged,
 import datarefs from "../atoms/XPlaneDataRefs";
 
 const xplaneMessages = {
-    GET_XPLANE_RPOS_OUTPUT: "RPOS05",
+    GET_XPLANE_RPOS_OUTPUT: "RPOS015",
     STOP_XPLANE_OUTPUT: "RPOS000",
 };
 
@@ -29,7 +29,7 @@ var remoteAddress;
 var store;
 
 const RREF_REQUEST = {
-    INDICATED_AIRSPEED: { id: 1, dataref: "sim/flightmodel/position/indicated_airspeed", frequency: 5 },
+    INDICATED_AIRSPEED: { id: 1, dataref: "sim/flightmodel/position/indicated_airspeed", frequency: 15 },
     ENGINE_RPM: { id: 2, dataref: "sim/cockpit2/engine/indicators/engine_speed_rpm[0]", frequency: 2 },
 };
 

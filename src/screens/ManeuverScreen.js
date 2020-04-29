@@ -9,15 +9,32 @@ import PropTypes from "prop-types";
 import maneuvers from "../atoms/ManeuverTypes";
 import ScreenBrief from "../components/ScreenBrief";
 import ManeuverOverviewItem from '../components/ManeuverOverviewItem';
-import RequirementsView from '../components/RequirementsView';
 import { connect } from 'react-redux';
 import RequirementsContainer from "../container/RequirementsContainer";
 import ConnectionContainer from '../container/ConnectionContainer';
 import { getManeuverRequierements } from "../selectors/RequirementsCalculator";
+import { getManeuverStatus } from "../selectors/ManeuverStatusObserver";
+import { startManeuver, stopManeuver, restartCurrentManeuver } from "../actions/actions";
+import ManeuverEndStatusContainer from "../container/ManeuverEndStatusContainer";
+import ManeuverEngagementMessage from "../components/ManeuverEngagementMessage";
+import SteepTurnDisplay from '../components/maneuvers/SteepTurnsDisplay';
+import SteepTurnPerformanceContainer from '../container/maneuvers/SteepTurnPerformanceContainer';
 
-function ManeuverScreen({ maneuverType, allRequirementsFulfilled }) {
+var maneuverOutcomeSuccessful = false;
+
+function ManeuverScreen({ flightData, maneuverType, allRequirementsFulfilled, userFulfilledEngagementCriteria, startCurrentManeuver, stopCurrentManeuver, maneuverRecording, maneuverEnded, maneuverStopCriteriaReached, maneuverSuccess }) {
 
   const maneuverDescription = getManeuverDescription(maneuverType);
+
+  if (maneuverRecording) {
+    if (maneuverStopCriteriaReached) {
+      stopCurrentManeuver(maneuverSuccess);
+    }
+  } else {
+    if (userFulfilledEngagementCriteria) {
+      startCurrentManeuver();
+    }
+  }
 
   return (
     <View style={styles.rootContainer}>
@@ -26,18 +43,40 @@ function ManeuverScreen({ maneuverType, allRequirementsFulfilled }) {
 
       <ManeuverOverviewItem style={styles.overviewContainer}
         maneuverTitle={maneuverType} />
-      <ScreenBrief briefTitle={maneuverType}
-        briefDescription={maneuverDescription}
-        callToAction="Fullfill the requirements to start training."
-      />
-      {allRequirementsFulfilled ? (
-        <ScreenBrief briefTitle={maneuverType}
-          briefDescription={maneuverDescription}
-          callToAction="Everything fulfilled"
-        />
-      ) : (
-          <RequirementsContainer />
-        )}
+
+      {
+        (!maneuverRecording && !maneuverEnded) ? (
+
+          <View>
+            <ScreenBrief briefTitle={maneuverType}
+              briefDescription={maneuverDescription}
+              callToAction="Fullfill the requirements to start training."
+            />
+            <RequirementsContainer />
+          </View>
+        ) : (
+            <View>
+              <ScreenBrief briefTitle={maneuverType}
+                briefDescription={maneuverDescription}
+                callToAction=""
+              />
+            </View>
+          )
+      }
+
+      {(allRequirementsFulfilled && !maneuverRecording && !maneuverEnded) &&
+        <ManeuverEngagementMessage engagementMessage="Roll quickly into a 45° turn to start the maneuver" />
+      }
+
+      {maneuverRecording &&
+        <SteepTurnPerformanceContainer />
+      }
+
+
+      {maneuverEnded &&
+        <ManeuverEndStatusContainer maneuverSuccess={false} />
+      }
+
     </View>
   );
 }
@@ -58,22 +97,34 @@ const styles = StyleSheet.create({
   overviewContainer: {
     paddingTop: 20,
   },
-  requirementsContainer: {
-
-  }
 });
 
 ManeuverScreen.propTypes = {
   maneuverType: PropTypes.string.isRequired,
   allRequirementsFulfilled: PropTypes.bool.isRequired,
+  startCurrentManeuver: PropTypes.func.isRequired,
+  maneuverRecording: PropTypes.bool.isRequired,
+  maneuverEnded: PropTypes.bool.isRequired,
+  stopCurrentManeuver: PropTypes.func.isRequired,
+  maneuverStopCriteriaReached: PropTypes.bool.isRequired,
+  maneuverSuccess: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = state => ({
   maneuverType: state.maneuver.maneuverSelected,
   allRequirementsFulfilled: getManeuverRequierements(state).allRequirementsFulfilled,
+  userFulfilledEngagementCriteria: getManeuverStatus(state).userFulfilledEngagementCriteria,
+  maneuverRecording: state.maneuver.maneuverRecording,
+  maneuverEnded: state.maneuver.maneuverEnded,
+  maneuverStopCriteriaReached: getManeuverStatus(state).maneuverStopCriteriaReached,
+  flightData: state.flightData,
+  maneuverSuccess: getManeuverStatus(state).maneuverPerformance.maneuverSuccess,
 });
 
 const mapDispatchToProps = dispatch => ({
+  startCurrentManeuver: () => dispatch(startManeuver()),
+  stopCurrentManeuver: success => dispatch(stopManeuver(success)),
+  restartManeuver: () => dispatch(restartCurrentManeuver()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ManeuverScreen)

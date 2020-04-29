@@ -1,14 +1,15 @@
 /**
- * Displays requiremetns that need to be fullfilled before a maneuver can be started.
+ * Displays requirements that need to be fullfilled before a maneuver can be started.
  */
 
 import React from "react";
 import { View, Text, StyleSheet, Image } from 'react-native';
 import PropTypes from "prop-types";
 
+
+
 export default function RequirementsView(conditions) {
 
-    console.log(conditions);
 
     return (
         < View style={styles.rootContainer} >

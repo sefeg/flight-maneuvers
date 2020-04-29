@@ -7,6 +7,7 @@ import {
     COMPLETED_MANEUVER_PERFORMANCE,
     SET_DATA_PROVIDER,
     CONNECTION_STATUS_CHANGED,
+    RESTART_CURRENT_MANEUVER,
     connectionStatus,
     maneuverSelectionStatus,
     MANEUVER_REQUIREMENTS_NOT_MET,
@@ -20,44 +21,51 @@ import dataRefs from "../atoms/XPlaneDataRefs";
 
 function maneuver(state = {
     maneuverSelected: maneuverSelectionStatus.NONE_SELECTED,
-    maneuverRequirementsFulfilled: false,
-    maneuverStarted: false,
+    maneuverRecording: false,
+    entrySettings: {},
+    maneuverOutcome: {},
 }, action) {
 
     switch (action.type) {
         case SET_SELECTED_MANEUVER:
             return {
-                ...state,
                 maneuverSelected: action.maneuver,
+                maneuverRecording: false,
+                maneuverEnded: false,
+                entrySettings: {},
+                maneuverOutcome: {},
             };
         case RESET_CURRENT_MANEUVER:
             return {
                 maneuverSelected: maneuverSelectionStatus.NONE_SELECTED,
-                maneuverRequirementsFulfilled: false,
-                maneuverStarted: false,
+                maneuverRecording: false,
+                maneuverEnded: false,
+                entrySettings: {},
+                maneuverOutcome: {},
             };
-        case MANEUVER_REQUIREMENTS_MET:
-
-            console.log("Fulfilled maneuver reqs");
-
+        case RESTART_CURRENT_MANEUVER:
             return {
                 ...state,
-                maneuverRequirementsFulfilled: true,
-            };
-        case MANEUVER_REQUIREMENTS_NOT_MET:
-            return {
-                ...state,
-                maneuverRequirementsFulfilled: false,
-            };
+                maneuverEnded: false,
+                maneuverRecording: false,
+                entrySettings: {},
+                maneuverOutcome: {},
+            }
         case START_MANEUVER:
             return {
                 ...state,
-                maneuverStarted: true,
+                maneuverRecording: true,
+                maneuverEnded: false,
+                entrySettings: action.flightData,
             };
         case STOP_MANEUVER:
             return {
                 ...state,
-                maneuverStarted: false,
+                maneuverRecording: false,
+                maneuverEnded: true,
+                maneuverOutcome: {
+                    outcomeSuccessful: action.outcomeSuccessful,
+                }
             }
         default:
             return state;
@@ -171,6 +179,17 @@ function userPerformances(state, action) {
         }
     }
 }
+
+// custom combine reducers
+/*const maneuversAppReducer = (state = {}, action: Action) => {
+
+    return {
+        maneuver: maneuver(state.maneuver, action),
+        flightData: flightData(state.flightData, action),
+        userPerformances: userPerformances(state.userPerformances, action),
+        dataProvier: dataProvider(state.dataProvider, action),
+    };
+};*/
 
 const maneuversAppReducer = combineReducers({
     maneuver,
