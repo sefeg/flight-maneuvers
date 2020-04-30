@@ -15,15 +15,11 @@ const HEADING_TOLERANCE = 10;
  */
 const MAXIMUM_ROLLOUT_BANK = 10;
 
-var crossedZeroHeadingCounter = 0;
-var lastHeading = 0;
-var progressInPercent = 0;
 
-var altitudeSum = 0;
-var countAltitudeRecordings = 0;
-var lastAltitudeRecorded = 0;
-var upperAltitude = 0;
-var lowerAltitude = 0;
+/**
+ * Designated to store information on the performance regarding altitude, speed, and bank.
+ */
+var performanceRecord;
 
 var performanceDataInitialized = false;
 
@@ -39,68 +35,51 @@ export const getSteepTurnPerformance = createSelector(
     [getFlightData, getManeuverRecording, getEntrySettings],
     (flightData, maneuverRecording, entrySettings) => {
 
+        if (performanceRecord == undefined) {
+            initializeRecording(0, 0, 0);
+        }
+
         var terminateManeuver = false;
 
         if (maneuverRecording) {
 
+            const currentElevASL = flightData.elevASL;
+            const currentAirspeed = flightData.airspeed;
+            const currentBank = flightData.roll;
+            const currentHeading = flightData.heading;
+
             if (!performanceDataInitialized) {
-
-                crossedZeroHeadingCounter = 0;
-                lastHeading = 0;
-                progressInPercent = 0;
-
-                /**
-                 * Altitude init
-                 */
-                altitudeSum = 0;
-                countAltitudeRecordings = 0;
-                lastAltitudeRecorded = 0;
-                upperAltitude = entrySettings.elevASL;
-                lowerAltitude = entrySettings.elevASL;
-
-
+                initializeRecording(currentElevASL, currentAirspeed, currentBank);
                 performanceDataInitialized = true;
             }
 
-            if (flightData.elevASL !== lastAltitudeRecorded) {
+            updatePerformanceRecord([currentElevASL, currentAirspeed, currentBank]);
 
-                altitudeSum += flightData.elevASL;
-                countAltitudeRecordings++;
+            if (Math.abs(currentHeading - performanceRecord.lastHeading) > 1.0) { //check for significant change in heading
 
-                lastAltitudeRecorded = flightData.elevASL;
-
-                if (flightData.elevASL > upperAltitude) {
-                    upperAltitude = flightData.elevASL;
-                } else if (flightData.elevASL < lowerAltitude) {
-                    lowerAltitude = flightData.elevASL;
-                }
-            }
-
-            if (Math.abs(flightData.heading - lastHeading) > 1.0) { //check for significant change in heading
-
-                const crossedZeroRequirementPassed =
-                    (entrySettings.heading > 360 - HEADING_TOLERANCE && crossedZeroHeadingCounter == 2)
-                    || (entrySettings.heading <= 360 - HEADING_TOLERANCE && crossedZeroHeadingCounter == 1);
+                const zeroCrossingIsAcceptable = performanceRecord.crossedZeroHeadingCounter == 0
+                    || (entrySettings.heading > 360 - HEADING_TOLERANCE && performanceRecord.crossedZeroHeadingCounter == 1);
 
                 /**
                  * Check if direction of roll stays conistent
                  */
-                var rollingInTheCorrectDirection = flightData.heading >= lastHeading;
+                var rollingInTheCorrectDirection = currentHeading >= performanceRecord.lastHeading;
 
                 if (!rollingInTheCorrectDirection) {
 
                     /**
                      * Compensate in case the 0° heading has been crossed
                      */
-                    if (flightData.heading < 15 && lastHeading > 345 && crossedZeroHeadingCounter === 0) {
-                        crossedZeroHeadingCounter++;
-                        rollingInTheCorrectDirection = true;
+                    if (currentHeading < 15 && performanceRecord.lastHeading > 345) {
+
+                        performanceRecord.crossedZeroHeadingCounter++;
+                        rollingInTheCorrectDirection = zeroCrossingIsAcceptable;
                     }
 
                     /**
                      * Check if opposite direction is a result of a fast roll-out attempt WITHIN the roll-out heading range
                      */
-                    if (calculateRealDistanceBetweenTwoHeadings(flightData.heading, entrySettings.heading) <= HEADING_TOLERANCE) {
+                    if (calculateRealDistanceBetweenTwoHeadings(currentHeading, entrySettings.heading) <= HEADING_TOLERANCE) {
                         rollingInTheCorrectDirection = true;
                     }
                 }
@@ -109,45 +88,126 @@ export const getSteepTurnPerformance = createSelector(
                  * Check for overshooting the turn
                  */
                 var overshotRollOutHeading =
-                    crossedZeroRequirementPassed
-                    && flightData.heading > getHeadingOnStandardScale(entrySettings.heading + HEADING_TOLERANCE);
+                    !zeroCrossingIsAcceptable
+                    && currentHeading > getHeadingOnStandardScale(entrySettings.heading + HEADING_TOLERANCE);
 
+                console.log(overshotRollOutHeading);
 
                 /**
                  * Check if the plane is within the roll-out tolerance range
                  * and, if so, if the plane has in fact rolled out
                  */
                 var rolledOutWithinRollOutRange =
-                    calculateRealDistanceBetweenTwoHeadings(flightData.heading, entrySettings.heading) <= HEADING_TOLERANCE
-                    && crossedZeroRequirementPassed
-                    && Math.abs(flightData.roll) <= MAXIMUM_ROLLOUT_BANK;
+                    Math.abs(currentBank) <= MAXIMUM_ROLLOUT_BANK
+                    && calculateRealDistanceBetweenTwoHeadings(currentHeading, entrySettings.heading)
+                    && (
+                        !zeroCrossingIsAcceptable
+                        || (currentHeading <= 360
+                            && (entrySettings.heading > 360 - HEADING_TOLERANCE && performanceRecord.crossedZeroHeadingCounter == 1)
+                            || (entrySettings.heading < HEADING_TOLERANCE && performanceRecord.crossedZeroHeadingCounter == 0)
+                        )
+                    );
+
+                if (rolledOutWithinRollOutRange) {
+                    performanceRecord.rollOutHeading = currentHeading;
+                }
 
                 /**
                  * Calculate progress based on heading
                  */
 
-                progressInPercent = (calculateHeadingDistanceFromStartingPoint(entrySettings.heading, flightData.heading) / 360.0) * 100;
+                const distanceTravelledFromEntry = calculateHeadingDistanceFromStartingPoint(entrySettings.heading, currentHeading);
+
+                if (distanceTravelledFromEntry < HEADING_TOLERANCE
+                    && (!zeroCrossingIsAcceptable
+                        || (entrySettings.heading <= 360 && performanceRecord.crossedZeroHeadingCounter == 1))) {
+                    /**
+                     * The plane overshot the roll out heading, but this is acceptable until the upper
+                     * tolerance is reached, at which point the maneuver is terminated.
+                     */
+                    performanceRecord.progressInPercent = 100.0;
+                } else {
+                    performanceRecord.progressInPercent = (distanceTravelledFromEntry / 360.0) * 100;
+                }
 
                 terminateManeuver = !rollingInTheCorrectDirection || overshotRollOutHeading || rolledOutWithinRollOutRange;
 
-                lastHeading = flightData.heading;
+                performanceRecord.lastHeading = currentHeading;
             }
+
         } else {
             performanceDataInitialized = false;
         }
 
         return {
             "terminateManeuver": terminateManeuver,
-            "maneuverProgress": progressInPercent,
+            "maneuverProgress": performanceRecord.progressInPercent,
             "maneuverSuccess": rolledOutWithinRollOutRange,
             "performance": {
-                "meanAltitude": altitudeSum / countAltitudeRecordings,
-                "upperAltitude": upperAltitude,
-                "lowerAltitude": lowerAltitude,
+                "altitude": {
+                    "mean": performanceRecord.altitude.sum / performanceRecord.altitude.countRecordings,
+                    "upper": performanceRecord.altitude.limits.upper,
+                    "lower": performanceRecord.altitude.limits.lower,
+                },
+                "airspeed": {
+                    "mean": performanceRecord.airspeed.sum / performanceRecord.airspeed.countRecordings,
+                    "upper": performanceRecord.airspeed.limits.upper,
+                    "lower": performanceRecord.airspeed.limits.lower,
+                },
+                "bank": {
+                    "mean": performanceRecord.bank.sum / performanceRecord.bank.countRecordings,
+                    "upper": performanceRecord.bank.limits.upper,
+                    "lower": performanceRecord.bank.limits.lower,
+                },
+                "rollOutHeading": performanceRecord.rollOutHeading,
             }
         }
     }
 )
+
+/**
+ * 
+ * Initializes all variables that indicate maneuver performance regarding altitude, airspeed, and bank.
+ * Values for those need to be tracked separetly as we cannot rely on the data provider to update / send
+ * them at the same frequency.
+ */
+
+function initializeRecording(initialElevASL, initialAirspeed, initialBank) {
+
+    performanceRecord = {
+        "altitude": {
+            sum: initialElevASL,
+            countRecordings: 1,
+            lastRecorded: initialElevASL,
+            limits: {
+                lower: initialElevASL,
+                upper: initialElevASL,
+            }
+        },
+        "airspeed": {
+            sum: initialAirspeed,
+            countRecordings: 1,
+            lastRecorded: initialAirspeed,
+            limits: {
+                lower: initialAirspeed,
+                upper: initialAirspeed,
+            }
+        },
+        "bank": {
+            sum: initialBank,
+            countRecordings: 1,
+            lastRecorded: initialBank,
+            limits: {
+                lower: initialBank,
+                upper: initialBank,
+            }
+        },
+        rollOutHeading: 0,
+        crossedZeroHeadingCounter: 0,
+        lastHeading: 0,
+        progressInPercent: 0,
+    }
+}
 
 /**
  * Handles calculated headings in a range from  -360° to +720° and returns a corresponding
@@ -199,4 +259,33 @@ function calculateHeadingDistanceFromStartingPoint(entryHeading, currentHeading)
     }
 
     return distance;
+}
+
+/**
+ * Updates the performance record regarding elevation, airspeed, and bank, based on the current flight data.
+ * @param {Array} currentFlightData expects an array with three values: [0] elevation, [1] airspeed, [2] bank
+ */
+function updatePerformanceRecord(currentFlightData) {
+
+    const performanceRecordKeys = ["altitude", "airspeed", "bank"];
+
+    var counter = 0;
+    for (; counter <= 2; counter++) {
+
+        const performanceRecordEntry = performanceRecord[performanceRecordKeys[counter]];
+        const value = currentFlightData[counter];
+
+        if (value !== performanceRecordEntry.lastRecorded) {
+
+            performanceRecordEntry.sum += value;
+            performanceRecordEntry.countRecordings++;
+            performanceRecordEntry.lastAltitudeRecorded = value;
+
+            if (value > performanceRecordEntry.limits.upper) {
+                performanceRecordEntry.limits.upper = value;
+            } else if (value < performanceRecordEntry.limits.lower) {
+                performanceRecordEntry.limits.lower = value;
+            }
+        }
+    }
 }

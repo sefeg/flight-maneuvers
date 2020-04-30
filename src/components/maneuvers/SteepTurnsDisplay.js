@@ -10,8 +10,6 @@ import HeadingIndicator from "../performance_indicators/HeadingIndicator";
 
 export default function SteepTurnDisplay({ targetAirspeed, targetElevation, rollInOutHeading, headingProgress, actualAirspeed, actualElevation, currentBank, meanAltitude }) {
 
-    console.log(meanAltitude);
-
     return (
         < View style={styles.rootContainer} >
             <Text style={styles.title}>It's on! Turn performance recording...</Text>
@@ -53,7 +51,7 @@ export default function SteepTurnDisplay({ targetAirspeed, targetElevation, roll
                     <View style={{ left: 48 }}>
                         <BankIndicator
                             currentBank={currentBank}
-                            targetBank={-45}
+                            targetBank={45}
                         />
                     </View>
                 </View>

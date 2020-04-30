@@ -11,8 +11,10 @@ import { signalRPOSDataReceived, singalDataRefReceived, connectionStatusChanged,
 
 import datarefs from "../atoms/XPlaneDataRefs";
 
+const MESSAGES_PER_SECOND_IMPORTANT_FLIGHT_DATA = 15;
+
 const xplaneMessages = {
-    GET_XPLANE_RPOS_OUTPUT: "RPOS015",
+    GET_XPLANE_RPOS_OUTPUT: "RPOS0" + MESSAGES_PER_SECOND_IMPORTANT_FLIGHT_DATA,
     STOP_XPLANE_OUTPUT: "RPOS000",
 };
 
@@ -29,7 +31,7 @@ var remoteAddress;
 var store;
 
 const RREF_REQUEST = {
-    INDICATED_AIRSPEED: { id: 1, dataref: "sim/flightmodel/position/indicated_airspeed", frequency: 15 },
+    INDICATED_AIRSPEED: { id: 1, dataref: "sim/flightmodel/position/indicated_airspeed", frequency: MESSAGES_PER_SECOND_IMPORTANT_FLIGHT_DATA },
     ENGINE_RPM: { id: 2, dataref: "sim/cockpit2/engine/indicators/engine_speed_rpm[0]", frequency: 2 },
 };
 
