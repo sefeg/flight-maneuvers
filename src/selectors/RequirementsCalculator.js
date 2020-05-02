@@ -1,3 +1,8 @@
+/**
+ * Indicates which requirements of the currently seclected maneuver
+ * are currently met.
+ */
+
 import { createSelector } from 'reselect';
 import maneuverTypes from "../atoms/ManeuverTypes";
 

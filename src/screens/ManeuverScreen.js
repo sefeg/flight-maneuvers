@@ -1,6 +1,9 @@
 /**
  * A screen dedicated to a specific maneuver. Provides an overview of past
- * training performance for that maneuver and records a new training session.
+ * training performance for that maneuver and records a new training session. In particular,
+ * displays live maneuver performance data and retrospective analyes. Displays all information
+ * during the entire maneuver cycle (fulfilling requirement, enaging in the maneuver, live performance data,
+ * retro-spective analysis).
  */
 
 import React from 'react';
@@ -17,12 +20,10 @@ import { getManeuverStatus } from "../selectors/ManeuverStatusObserver";
 import { startManeuver, stopManeuver, restartCurrentManeuver } from "../actions/actions";
 import ManeuverEndStatusContainer from "../container/ManeuverEndStatusContainer";
 import ManeuverEngagementMessage from "../components/ManeuverEngagementMessage";
-import SteepTurnDisplay from '../components/maneuvers/SteepTurnsDisplay';
 import SteepTurnPerformanceContainer from '../container/maneuvers/SteepTurnPerformanceContainer';
 
-var maneuverOutcomeSuccessful = false;
 
-function ManeuverScreen({ flightData, maneuverType, allRequirementsFulfilled, userFulfilledEngagementCriteria, startCurrentManeuver, stopCurrentManeuver, maneuverRecording, maneuverEnded, maneuverStopCriteriaReached, maneuverSuccess }) {
+function ManeuverScreen({ maneuverType, allRequirementsFulfilled, userFulfilledEngagementCriteria, startCurrentManeuver, stopCurrentManeuver, maneuverRecording, maneuverEnded, maneuverStopCriteriaReached, maneuverSuccess }) {
 
   const maneuverDescription = getManeuverDescription(maneuverType);
 
@@ -116,7 +117,6 @@ const mapStateToProps = state => ({
   maneuverRecording: state.maneuver.maneuverRecording,
   maneuverEnded: state.maneuver.maneuverEnded,
   maneuverStopCriteriaReached: getManeuverStatus(state).maneuverStopCriteriaReached,
-  flightData: state.flightData,
   maneuverSuccess: getManeuverStatus(state).maneuverPerformance.maneuverSuccess,
 });
 

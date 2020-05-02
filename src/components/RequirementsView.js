@@ -1,5 +1,6 @@
 /**
- * Displays requirements that need to be fullfilled before a maneuver can be started.
+ * Displays requirements that need to be fullfilled before a maneuver can be started. Based on the status
+ * of the requirement either displays a success or failed icon.
  */
 
 import React from "react";
@@ -9,7 +10,6 @@ import PropTypes from "prop-types";
 
 
 export default function RequirementsView(conditions) {
-
 
     return (
         < View style={styles.rootContainer} >

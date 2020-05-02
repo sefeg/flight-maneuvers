@@ -9,7 +9,6 @@ function mapStateToProps(state, ownProps) {
         connected: state.dataProvider.connectionStatus === connectionStatus.CONNECTED,
     };
 }
-
 const mapDispatchToProps = dispatch => ({
 });
 

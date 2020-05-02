@@ -1,16 +1,20 @@
+/**
+ * Displays performance data related to the steep turn maneuver. Those include
+ * airspeed, altitude, bank angle, and heading. Designed to display and update
+ * live performance data and a retrospective performance analysis.
+ */
+
 import React from "react";
 import { View, Text, StyleSheet, YellowBox } from "react-native";
 import PropTypes from "prop-types";
 
 import AirspeedIndicator from "../performance_indicators/AirspeedIndicator";
-import { AnimatedCircularProgress } from 'react-native-circular-progress';
 import ElevationIndicator from "../performance_indicators/ElevationIndicator";
 import BankIndicator from "../performance_indicators/BankIndicator";
 import HeadingIndicator from "../performance_indicators/HeadingIndicator";
 
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faCheckCircle, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
-import { greaterThan } from "react-native-reanimated";
 
 export default function SteepTurnDisplay({ maneuverEnded, targetAirspeed, targetElevation,
      rollInOutHeading, headingProgress, actualAirspeed, actualElevation, currentBank, maneuverAnalysisData}) {
@@ -221,7 +225,7 @@ const styles = StyleSheet.create({
     color: "red",
     marginRight: 5,
    },
-       elevationContainer: {
+   elevationContainer: {
         alignItems: "center",
         flexDirection: "row",
         marginTop: -22,

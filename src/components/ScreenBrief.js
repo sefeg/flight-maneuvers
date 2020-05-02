@@ -5,7 +5,7 @@
  */
 
 import React from 'react';
-import {View, StyleSheet, Text} from 'react-native';
+import { View, StyleSheet, Text } from 'react-native';
 import PropTypes from 'prop-types';
 
 export default function ScreenBrief(props) {

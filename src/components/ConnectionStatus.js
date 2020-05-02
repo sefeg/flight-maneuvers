@@ -1,6 +1,11 @@
+/**
+ * Shows the connection status (boolean) to a data provider (e.g. X-Plane). Optionally
+ * displays a configuration button that indicates that the user wants to configure the
+ * data provider.
+ */
+
 import React from "react";
 import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
-import { connect } from 'react-redux';
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faWifi, faPlug, faCog } from '@fortawesome/free-solid-svg-icons';

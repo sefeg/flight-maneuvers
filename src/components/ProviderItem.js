@@ -1,3 +1,10 @@
+/**
+ * Displays a selectable container with information about a data provider (e.g. X-Plane). Displays
+ * the provider name and an icon (gamepad if it is a simulator, gps/arrow icon in case of a real location
+ * source). Can further indicate if this is the currently used data provider. By default, the container is
+ * selectable and indicates that the provider has been selected if touched.
+ */
+
 import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
@@ -5,8 +12,6 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faLocationArrow, faGamepad } from '@fortawesome/free-solid-svg-icons';
 import { setDataProvider } from "../actions/actions";
-import dataProviders from "../atoms/DataProviders";
-
 
 function ProviderItem({ itemName, simulated, selectedProvider, disableTouch = false, currentItem = false }) {
 

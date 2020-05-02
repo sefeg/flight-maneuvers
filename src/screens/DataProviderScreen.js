@@ -1,3 +1,8 @@
+/**
+ * Displays all available data providers (e.g. X-Plane) and enables the user to
+ * switch to a new data provider from the list.
+ */
+
 import React from "react";
 import { connect } from "react-redux";
 import { View, Text, StyleSheet } from "react-native";
@@ -14,8 +19,6 @@ function DataProviderScreen({ navigation, currentDataProvider }) {
     const settingsTitle = currentDataProvider + " configuration";
 
     for (let [key, value] of Object.entries(supportedSimulators)) {
-
-        console.log(value + " " + currentDataProvider);
 
         simulatedItems.push(<ProviderItem itemName={value} simulated={true} currentItem={currentDataProvider === value} />);
     }

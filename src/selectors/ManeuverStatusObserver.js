@@ -1,3 +1,11 @@
+/**
+ * A high level observer of the status of the current maneuver. Directs responsibility to
+ * judge maneuver performance and termination to the individual and applicable maneuver
+ * observer that depends on the type of maneuver. Returns three major information: whether
+ * or not the user fullfilled the criteria to start the maneuver, whether or not the maneuver
+ * has been completed, and the maneuver performance data (live and retrospective).
+ */
+
 import { createSelector } from 'reselect';
 import { getManeuverRequierements } from "./RequirementsCalculator";
 import { getSteepTurnPerformance } from "./maneuver_selectors/SteepTurnObserver";

@@ -1,10 +1,17 @@
+/**
+ * Monitors the entire performance of the steep turns maneuver. Evaluates and returns an
+ * analysis of all criteria (heading, airspeed, altitude, and bank angle). Considers the 
+ * maneuver successful if the plane rolls out around the start heading and all criteria
+ * are met. The steep turn maneuver ends if the plane overshoots the start heading, rolls out
+ * at the start heading, or changes turn direction.
+ */
+
 import { createSelector } from 'reselect';
 import criteria from "../../atoms/criteria/SteepTurnCriteria";
 
 const getFlightData = state => state.flightData;
 const getManeuverRecording = state => state.maneuver.maneuverRecording;
 const getEntrySettings = state => state.maneuver.entrySettings;
-
 
 /**
  * Heading tolerance for rolling out from the steep turn maneuver (+/-)

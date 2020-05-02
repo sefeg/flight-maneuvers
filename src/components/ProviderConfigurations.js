@@ -1,3 +1,9 @@
+/**
+ * Displays configuration items for a data provider (e.g. X-Plane). Supports boolean configuration
+ * items (Enabled / Disabled) and text inputs. Displays a descriptive text next to each button or
+ * text input.
+ */
+
 import React from "react";
 import { View, Text, StyleSheet, Button, TextInput } from "react-native";
 

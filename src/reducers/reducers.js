@@ -101,7 +101,6 @@ function dataProvider(state = {
 }
 
 
-
 function flightData(
     state = { heading: 0, elevASL: 0, elevAGL: 0, roll: 0, engineRPM: 0, indicatedAirspeed: 0 },
     action,
@@ -179,17 +178,6 @@ function userPerformances(state, action) {
         }
     }
 }
-
-// custom combine reducers
-/*const maneuversAppReducer = (state = {}, action: Action) => {
-
-    return {
-        maneuver: maneuver(state.maneuver, action),
-        flightData: flightData(state.flightData, action),
-        userPerformances: userPerformances(state.userPerformances, action),
-        dataProvier: dataProvider(state.dataProvider, action),
-    };
-};*/
 
 const maneuversAppReducer = combineReducers({
     maneuver,

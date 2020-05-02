@@ -1,10 +1,14 @@
+/**
+ * A simple container displaying a gamepad icon and a message that indicates how
+ * a maneuver is started.
+ */
+
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import PropTypes from "prop-types";
 
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faGamepad } from '@fortawesome/free-solid-svg-icons';
-import { TouchableOpacity } from "react-native-gesture-handler";
 
 export default function ManeuverEngagementMessage(props) {
 
@@ -34,6 +38,5 @@ const styles = StyleSheet.create({
 });
 
 ManeuverEngagementMessage.propTypes = {
-
     engagementMessage: PropTypes.string.isRequired,
 }

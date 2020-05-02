@@ -15,7 +15,6 @@ export default function HeadingIndicator({ rollInOutHeading, progressInPercent }
 
     var barColor = "#b3b300";
 
-
     return (
         <AnimatedCircularProgress
             size={65}

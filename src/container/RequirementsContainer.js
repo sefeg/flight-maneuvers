@@ -1,9 +1,6 @@
-import React from "react";
 import { connect } from "react-redux";
 import RequirementsView from "../components/RequirementsView";
 
-import maneuverSelectionStatus from "../actions/actions";
-import maneuvers from "../atoms/ManeuverTypes";
 import { signalManeuverRequirementsMet } from "../actions/actions";
 
 import { getManeuverRequierements } from "../selectors/RequirementsCalculator";

@@ -1,5 +1,5 @@
 /**
- * Criteria for the steep turn maneuver
+ * Criteria for a successful steep turn maneuver
  */
 
 export default {

@@ -1,16 +1,19 @@
 /**
- * Manages interaction with an X-Plane server. Sends a UDP request for flight data
- * to X-Plane and receives flight data information on a specified UDP port.
+ * Manages interaction with an X-Plane server. Sends initial UDP request for flight data
+ * to X-Plane and continuously receives flight data information on a specified UDP port.
+ * A watchdog checks the connection status.
  * 
  * @author Sebastian Feger
  */
 
 import React from 'react';
-import PropTypes from "prop-types";
 import { signalRPOSDataReceived, singalDataRefReceived, connectionStatusChanged, connectionStatus } from "../actions/actions";
 
 import datarefs from "../atoms/XPlaneDataRefs";
 
+/**
+ * The number of messages we expect to receive from X-Plane for important flight data
+ */
 const MESSAGES_PER_SECOND_IMPORTANT_FLIGHT_DATA = 15;
 
 const xplaneMessages = {
@@ -26,9 +29,6 @@ var timestampLastMessageReceived = 0;
 var watchdogTimer;
 
 var currentlyConnected = false;
-var remoteAddress;
-
-var store;
 
 const RREF_REQUEST = {
     INDICATED_AIRSPEED: { id: 1, dataref: "sim/flightmodel/position/indicated_airspeed", frequency: MESSAGES_PER_SECOND_IMPORTANT_FLIGHT_DATA },
@@ -243,6 +243,11 @@ export default class XPlaneConnector extends React.Component {
         this.store.dispatch(signalRPOSDataReceived(heading = heading, elevASL = aslInFeet, elevAGL = aglInFeet, roll = roll));
     }
 
+    /**
+     * Analyses a message starting with the RREF command tag. RREF responses carry single infomrations
+     * like airspeed and engine rpm.
+     * @param {*} msg 
+     */
     analyzeRREFMessage(msg) {
 
         const id = msg[8];

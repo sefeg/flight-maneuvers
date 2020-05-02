@@ -1,3 +1,8 @@
+/**
+ * Indicates that the current maneuver has ended. Displays the outcome (successful / failed) and
+ * a button to restart the maneuver.
+ */
+
 import React from "react";
 import { View, TouchOpacity, Text, StyleSheet } from "react-native";
 import PropTypes from "prop-types";
