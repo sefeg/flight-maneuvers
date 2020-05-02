@@ -27,3 +27,7 @@ Shows the app set to the *steep turn* maneuver. Flight Maneuvers receives live d
 
 ![Image description](documentation/static_demo.png)
 
+## Short demo video (Youtube)
+
+[![Short demo video](http://img.youtube.com/vi/uuG9bcz6qf0/0.jpg)](https://www.youtube.com/watch?v=uuG9bcz6qf0)
+
