@@ -34,8 +34,23 @@ var performanceRecord;
  */
 var maneuverAnalysisData = {};
 
+/**
+ * Indicates whether or not the plane can still cross the 0° (N) heading once more
+ */
+var zeroCrossingIsAcceptable = true;
+
 var maneuverSuccess = false;
+
+/**
+ * The plane's setup (heading, speed, altitude) when entering the maneuver
+ */
 var maneuverEntrySetting;
+
+/**
+ * Holds the current (last received) flight data
+ */
+var currentFlightData;
+
 var performanceDataInitialized = false;
 
 /**
@@ -59,95 +74,34 @@ export const getSteepTurnPerformance = createSelector(
         if (maneuverRecording) {
 
             maneuverEntrySetting = entrySettings;
-
-            const currentElevASL = flightData.elevASL;
-            const currentAirspeed = flightData.indicatedAirspeed;
-            const currentBank = flightData.roll;
-            const currentHeading = flightData.heading;
+            currentFlightData = flightData;
 
             if (!performanceDataInitialized) {
-                initializeRecording(currentElevASL, currentAirspeed, currentBank);
+                initializeRecording(flightData.elevASL, flightData.indicatedAirspeed, flightData.roll);
                 performanceDataInitialized = true;
             }
 
-            updatePerformanceRecord([currentElevASL, currentAirspeed, currentBank]);
+            updatePerformanceRecord([flightData.elevASL, flightData.indicatedAirspeed, flightData.roll]);
 
-            if (Math.abs(currentHeading - performanceRecord.lastHeading) > 1.0) { //check for significant change in heading
+            if (Math.abs(flightData.heading - performanceRecord.lastHeading) > 1.0) { //check for significant change in heading
 
-                const zeroCrossingIsAcceptable = performanceRecord.crossedZeroHeadingCounter == 0
-                    || (entrySettings.heading > 360 - HEADING_TOLERANCE && performanceRecord.crossedZeroHeadingCounter == 1);
+                zeroCrossingIsAcceptable = isZeroCrossingAcceptable();
 
-                /**
-                 * Check if direction of roll stays conistent
-                 */
-                var rollingInTheCorrectDirection = currentHeading >= performanceRecord.lastHeading;
+                const rollingInTheCorrectDirection = isPlaneRollingInCorrectDirection();
 
-                if (!rollingInTheCorrectDirection) {
+                const overshotRollOutHeading = checkIfPlaneOvershootRollout();
 
-                    /**
-                     * Compensate in case the 0° heading has been crossed
-                     */
-                    if (currentHeading < 15 && performanceRecord.lastHeading > 345) {
-
-                        performanceRecord.crossedZeroHeadingCounter++;
-                        rollingInTheCorrectDirection = zeroCrossingIsAcceptable;
-                    }
-
-                    /**
-                     * Check if opposite direction is a result of a fast roll-out attempt WITHIN the roll-out heading range
-                     */
-                    if (calculateRealDistanceBetweenTwoHeadings(currentHeading, entrySettings.heading) <= HEADING_TOLERANCE) {
-                        rollingInTheCorrectDirection = true;
-                    }
-                }
-
-                /**
-                 * Check for overshooting the turn
-                 */
-                var overshotRollOutHeading =
-                    !zeroCrossingIsAcceptable
-                    && currentHeading > getHeadingOnStandardScale(entrySettings.heading + HEADING_TOLERANCE);
-
-                /**
-                 * Check if the plane is within the roll-out tolerance range
-                 * and, if so, if the plane has in fact rolled out
-                 */
-                var rolledOutWithinRollOutRange =
-                    Math.abs(currentBank) <= MAXIMUM_ROLLOUT_BANK
-                    && calculateRealDistanceBetweenTwoHeadings(currentHeading, entrySettings.heading) <= HEADING_TOLERANCE
-                    && (
-                        !zeroCrossingIsAcceptable
-                        || (currentHeading <= 360
-                            && (entrySettings.heading > 360 - HEADING_TOLERANCE && performanceRecord.crossedZeroHeadingCounter == 1)
-                            || (entrySettings.heading < HEADING_TOLERANCE && performanceRecord.crossedZeroHeadingCounter == 0)
-                        )
-                    );
+                var rolledOutWithinRollOutRange = didRollOutCorrectly();
 
                 if (rolledOutWithinRollOutRange) {
-                    performanceRecord.rollOutHeading = currentHeading;
+                    performanceRecord.rollOutHeading = flightData.heading;
                 }
 
-                /**
-                 * Calculate progress based on heading
-                 */
-
-                const distanceTravelledFromEntry = calculateHeadingDistanceFromStartingPoint(entrySettings.heading, currentHeading);
-
-                if (distanceTravelledFromEntry < HEADING_TOLERANCE
-                    && (!zeroCrossingIsAcceptable
-                        || (entrySettings.heading <= 360 && performanceRecord.crossedZeroHeadingCounter == 1))) {
-                    /**
-                     * The plane overshot the roll out heading, but this is acceptable until the upper
-                     * tolerance is reached, at which point the maneuver is terminated.
-                     */
-                    performanceRecord.progressInPercent = 100.0;
-                } else {
-                    performanceRecord.progressInPercent = (distanceTravelledFromEntry / 360.0) * 100;
-                }
+                determineManeuverProgress();
 
                 terminateManeuver = !rollingInTheCorrectDirection || overshotRollOutHeading || rolledOutWithinRollOutRange;
 
-                performanceRecord.lastHeading = currentHeading;
+                performanceRecord.lastHeading = flightData.heading;
             }
 
         } else {
@@ -174,6 +128,96 @@ export const getSteepTurnPerformance = createSelector(
         }
     }
 )
+
+/**
+* Calculates progress (in percent) based on the current heading and the roll-out heading
+*/
+
+function determineManeuverProgress() {
+
+    const distanceTravelledFromEntry = calculateHeadingDistanceFromStartingPoint(maneuverEntrySetting.heading, currentFlightData.heading);
+
+    if (distanceTravelledFromEntry < HEADING_TOLERANCE
+        && (!zeroCrossingIsAcceptable
+            || (maneuverEntrySetting.heading <= 360 && performanceRecord.crossedZeroHeadingCounter == 1))) {
+
+        /**
+         * The plane overshot the roll out heading, but this is acceptable until the upper
+         * tolerance is reached, at which point the maneuver is terminated.
+         */
+        performanceRecord.progressInPercent = 100.0;
+    } else {
+        performanceRecord.progressInPercent = (distanceTravelledFromEntry / 360.0) * 100;
+    }
+}
+
+/**
+ * @return true if the plane is within the roll-out tolerance range
+ * and has in fact rolled out (i.e. bank <= HEADING_TOLERANCE)
+ */
+function didRollOutCorrectly() {
+
+    return Math.abs(currentFlightData.roll) <= MAXIMUM_ROLLOUT_BANK
+        && calculateRealDistanceBetweenTwoHeadings(currentFlightData.heading, maneuverEntrySetting.heading) <= HEADING_TOLERANCE
+        && (
+            !zeroCrossingIsAcceptable
+            || (currentFlightData.heading <= 360
+                && (maneuverEntrySetting.heading > 360 - HEADING_TOLERANCE && performanceRecord.crossedZeroHeadingCounter == 1)
+                || (maneuverEntrySetting.heading < HEADING_TOLERANCE && performanceRecord.crossedZeroHeadingCounter == 0)
+            )
+        );
+}
+
+/**
+ * @return true if the plane is still turning after the rollout heading (plus tolearnce)
+ */
+function checkIfPlaneOvershootRollout() {
+
+    return !zeroCrossingIsAcceptable
+        && currentFlightData.heading > getHeadingOnStandardScale(maneuverEntrySetting.heading + HEADING_TOLERANCE);
+}
+
+/**
+ * Checks if the direction of the plane's turn is correct. The plane cannot turn to one side while
+ * being in a steep turn maneuver to the other side. The only exception is when the plane is rolling out. In this case a
+ * short overturn correction is permitted.
+ */
+function isPlaneRollingInCorrectDirection() {
+
+    var rollingInTheCorrectDirection = currentFlightData.heading >= performanceRecord.lastHeading;
+
+    if (!rollingInTheCorrectDirection) {
+
+        /**
+         * Compensate in case the 0° heading has been crossed
+         */
+        if (currentFlightData.heading < 15 && performanceRecord.lastHeading > 345) {
+
+            performanceRecord.crossedZeroHeadingCounter++;
+            rollingInTheCorrectDirection = zeroCrossingIsAcceptable;
+        }
+
+        /**
+         * Check if opposite direction is a result of a fast roll-out attempt WITHIN the roll-out heading range
+         */
+        if (calculateRealDistanceBetweenTwoHeadings(currentFlightData.heading, maneuverEntrySetting.heading) <= HEADING_TOLERANCE) {
+            rollingInTheCorrectDirection = true;
+        }
+    }
+
+    return rollingInTheCorrectDirection;
+}
+
+/**
+ * @return true in case the plane can still cross the 0° (N) heading once more. This is always the case
+ * if the plane did not cross the heading yet or if it only crossed once in case the roll-out heading is
+ * in close proximity to the 0° heading.
+ */
+function isZeroCrossingAcceptable() {
+
+    return performanceRecord.crossedZeroHeadingCounter == 0
+        || (maneuverEntrySetting.heading > 360 - HEADING_TOLERANCE && performanceRecord.crossedZeroHeadingCounter == 1);
+}
 
 /**
  * Constructs an array with key information regarding airspeed, altitude, and bank performance during the maneuver
