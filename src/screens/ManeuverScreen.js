@@ -41,8 +41,8 @@ function ManeuverScreen({ flightData, maneuverType, allRequirementsFulfilled, us
 
       <ConnectionContainer />
 
-      <ManeuverOverviewItem style={styles.overviewContainer}
-        maneuverTitle={maneuverType} />
+      {/*<ManeuverOverviewItem style={styles.overviewContainer}
+        maneuverTitle={maneuverType} />*/}
 
       {
         (!maneuverRecording && !maneuverEnded) ? (
@@ -68,13 +68,12 @@ function ManeuverScreen({ flightData, maneuverType, allRequirementsFulfilled, us
         <ManeuverEngagementMessage engagementMessage="Roll quickly into a 45° turn to start the maneuver" />
       }
 
-      {maneuverRecording &&
-        <SteepTurnPerformanceContainer />
-      }
-
-
       {maneuverEnded &&
         <ManeuverEndStatusContainer maneuverSuccess={false} />
+      }
+
+      {(maneuverRecording || maneuverEnded) &&
+        <SteepTurnPerformanceContainer />
       }
 
     </View>

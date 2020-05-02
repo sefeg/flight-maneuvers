@@ -8,11 +8,8 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 
 export default function ManeuverEndStatus({ restartManeuver, maneuverSuccess }) {
 
-    console.log("end status");
-    console.log(maneuverSuccess);
-
     return (
-        < View style={styles.container} >
+        < View style={getContainerStyle(maneuverSuccess)} >
 
             {
                 maneuverSuccess ? (
@@ -26,6 +23,32 @@ export default function ManeuverEndStatus({ restartManeuver, maneuverSuccess }) 
             </TouchableOpacity>
         </View >
     );
+}
+
+function getContainerStyle(success) {
+
+    if (success) {
+        return {
+            alignItems: "center",
+            marginTop: 20,
+            padding: 10,
+            backgroundColor: 'rgb(236, 250, 240)',
+            borderRadius: 5,
+            borderColor: '#0D953A',
+            borderWidth: 2,
+        }
+    } else {
+        return {
+
+            alignItems: "center",
+            marginTop: 20,
+            padding: 10,
+            backgroundColor: 'rgb(255, 204, 204)',
+            borderRadius: 5,
+            borderColor: 'red',
+            borderWidth: 2,
+        }
+    }
 }
 
 const styles = StyleSheet.create({
@@ -48,6 +71,6 @@ const styles = StyleSheet.create({
 });
 
 ManeuverEndStatus.propTypes = {
-    restartCurrentManeuver: PropTypes.func.isRequired,
+    restartCurrentManeuver: PropTypes.func,
     maneuverSuccess: PropTypes.bool.isRequired,
 }

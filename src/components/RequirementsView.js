@@ -17,7 +17,7 @@ export default function RequirementsView(conditions) {
             {
                 conditions.individualRequirements.map(condition => {
                     return (
-                        <View style={styles.requirementsItemContainer}>
+                        <View style={styles.requirementsItemContainer} key={condition.description}>
                             {condition.fulfilled ? (
                                 <Image style={styles.statusIcon} source={require('../assets/icons/checkmark.png')} />
                             ) : (
@@ -66,5 +66,5 @@ RequirementsView.propTypes = {
             description: PropTypes.string.isRequired,
             fulfilled: PropTypes.bool.isRequired,
         }).isRequired,
-    ).isRequired,
+    ),
 };

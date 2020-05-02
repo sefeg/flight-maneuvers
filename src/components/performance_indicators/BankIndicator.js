@@ -25,7 +25,7 @@ export default function BankIndicator({ targetBank, currentBank }) {
         displayBank = 100;
     }
 
-    var rotation = 90;
+    var rotation = 0;
 
     if (targetBank < 0) {
         rotation = 270;

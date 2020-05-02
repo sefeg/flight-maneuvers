@@ -12,7 +12,8 @@ function mapStateToProps(state) {
         actualAirspeed: Math.floor(state.flightData.indicatedAirspeed),
         actualElevation: Math.floor(state.flightData.elevASL),
         currentBank: Math.floor(state.flightData.roll),
-        meanAltitude: Math.floor(getSteepTurnPerformance(state).performance.meanAltitude),
+        maneuverAnalysisData: getSteepTurnPerformance(state).performance,
+        maneuverEnded: state.maneuver.maneuverEnded,
     };
 }
 const mapDispatchToProps = dispatch => ({
