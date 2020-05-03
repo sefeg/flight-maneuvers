@@ -9,6 +9,7 @@
 import { createSelector } from 'reselect';
 import { getManeuverRequierements } from "./RequirementsCalculator";
 import { getSteepTurnPerformance } from "./maneuver_selectors/SteepTurnObserver";
+import steepTurnCriteria from "../atoms/criteria/SteepTurnCriteria";
 
 import maneuverTypes from "../atoms/ManeuverTypes";
 
@@ -25,7 +26,9 @@ export const getManeuverStatus = createSelector(
             case maneuverTypes.STEEP_TURNS:
 
                 return {
-                    "userFulfilledEngagementCriteria": !maneuverEnded && !maneuverRecording && maneueverRequirements.allRequirementsFulfilled && (flightData.roll <= -45 || flightData.roll >= 45),
+                    "userFulfilledEngagementCriteria": !maneuverEnded
+                        && !maneuverRecording && maneueverRequirements.allRequirementsFulfilled
+                        && (flightData.roll <= -1.0 * steepTurnCriteria.MANEUVER_BANK_ANGLE || flightData.roll >= steepTurnCriteria.MANEUVER_BANK_ANGLE),
                     "maneuverStopCriteriaReached": !maneuverEnded && maneuverRecording && steepTurnPerformance.terminateManeuver,
                     "maneuverPerformance": steepTurnPerformance,
                 }

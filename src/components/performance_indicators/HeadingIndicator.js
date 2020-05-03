@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
+import turnDirections from "../../atoms/TurnDirections";
 
 /**
  * Indicates the plane's currentBank in respect to the targetBank (default 45°) based on a round
@@ -9,18 +10,24 @@ import { AnimatedCircularProgress } from 'react-native-circular-progress';
  * 
  * @param targetBank the ideal bank for the maneuver in degrees. Positive values indicate right turn, negative values a left turn.
  */
-export default function HeadingIndicator({ rollInOutHeading, progressInPercent }) {
+export default function HeadingIndicator({ rollInOutHeading, progressInPercent, turnDirection }) {
 
     const BANK_RANGE_IN_DEGREES = 20;
 
     var barColor = "#b3b300";
+
+    var progress = progressInPercent;
+
+    if (turnDirection == turnDirections.LEFT) {
+        progress = 100 - progressInPercent;
+    }
 
     return (
         <AnimatedCircularProgress
             size={65}
             width={6}
             backgroundWidth={10}
-            fill={progressInPercent}
+            fill={progress}
             tintColor={barColor}
             arcSweepAngle={360}
             rotation={rollInOutHeading}

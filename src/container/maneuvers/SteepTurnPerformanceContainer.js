@@ -9,6 +9,7 @@ function mapStateToProps(state) {
         targetElevation: Math.floor(state.maneuver.entrySettings.elevASL),
         rollInOutHeading: Math.floor(state.maneuver.entrySettings.heading),
         headingProgress: Math.floor(getSteepTurnPerformance(state).maneuverProgress),
+        turnDirection: getSteepTurnPerformance(state).turnDirection,
         actualAirspeed: Math.floor(state.flightData.indicatedAirspeed),
         actualElevation: Math.floor(state.flightData.elevASL),
         currentBank: Math.floor(state.flightData.roll),

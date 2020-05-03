@@ -7,10 +7,6 @@ export default {
      * The bank angle that should be maintained during the steep turn maneuver.
      */
     MANEUVER_BANK_ANGLE: 45,
-    /**
-     * The bank angle that should be maintained during the steep turn maneuver.
-     */
-    MANEUVER_BANK_ANGLE: 45,
 
     /**
      * Deviation (+/-) in bank angle that is allowd

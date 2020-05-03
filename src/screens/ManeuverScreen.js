@@ -22,6 +22,8 @@ import ManeuverEndStatusContainer from "../container/ManeuverEndStatusContainer"
 import ManeuverEngagementMessage from "../components/ManeuverEngagementMessage";
 import SteepTurnPerformanceContainer from '../container/maneuvers/SteepTurnPerformanceContainer';
 
+import steepTurnCriteria from "../atoms/criteria/SteepTurnCriteria";
+
 
 function ManeuverScreen({ maneuverType, allRequirementsFulfilled, userFulfilledEngagementCriteria, startCurrentManeuver, stopCurrentManeuver, maneuverRecording, maneuverEnded, maneuverStopCriteriaReached, maneuverSuccess }) {
 
@@ -66,7 +68,7 @@ function ManeuverScreen({ maneuverType, allRequirementsFulfilled, userFulfilledE
       }
 
       {(allRequirementsFulfilled && !maneuverRecording && !maneuverEnded) &&
-        <ManeuverEngagementMessage engagementMessage="Roll quickly into a 45° turn to start the maneuver" />
+        <ManeuverEngagementMessage engagementMessage={"Roll quickly into a " + steepTurnCriteria.MANEUVER_BANK_ANGLE + "° turn to start the maneuver"} />
       }
 
       {maneuverEnded &&

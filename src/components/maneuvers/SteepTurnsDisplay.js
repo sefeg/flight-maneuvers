@@ -13,10 +13,13 @@ import ElevationIndicator from "../performance_indicators/ElevationIndicator";
 import BankIndicator from "../performance_indicators/BankIndicator";
 import HeadingIndicator from "../performance_indicators/HeadingIndicator";
 
+import criteria from "../../atoms/criteria/SteepTurnCriteria";
+import turnDirections from "../../atoms/TurnDirections";
+
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faCheckCircle, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 
-export default function SteepTurnDisplay({ maneuverEnded, targetAirspeed, targetElevation,
+export default function SteepTurnDisplay({ maneuverEnded, targetAirspeed, targetElevation, turnDirection,
      rollInOutHeading, headingProgress, actualAirspeed, actualElevation, currentBank, maneuverAnalysisData}) {
 
     var displayAirspeed = actualAirspeed;
@@ -25,6 +28,11 @@ export default function SteepTurnDisplay({ maneuverEnded, targetAirspeed, target
     var meanAltitudeAnalysisText = "";
     var rollOutHeadingAnalysisText = "";
     var rolledOutWithinRange = false;
+
+    var targetBankAngle = criteria.MANEUVER_BANK_ANGLE;
+    if(turnDirection == turnDirections.LEFT){
+        targetBankAngle *= -1;
+    }
 
     if(maneuverEnded){
         displayAirspeed = maneuverAnalysisData.airspeed.mean;
@@ -64,6 +72,7 @@ export default function SteepTurnDisplay({ maneuverEnded, targetAirspeed, target
                         <HeadingIndicator
                             rollInOutHeading={rollInOutHeading}
                             progressInPercent={headingProgress}
+                            turnDirection={turnDirection}
                         />
                     </View>
                 </View>
@@ -113,12 +122,12 @@ export default function SteepTurnDisplay({ maneuverEnded, targetAirspeed, target
                     <View style={{ left: 48 }}>
                         <BankIndicator
                             currentBank={displayBank}
-                            targetBank={45}
+                            targetBank={targetBankAngle}
                         />
                     </View>
                 </View>
                 <View style={styles.bankDescriptor}>
-                    <Text>Keep bank: 45°</Text>
+                <Text>Keep bank: {targetBankAngle}°</Text>
                     {maneuverEnded &&
                     <View style={styles.analysisLine}>
                         {
@@ -238,6 +247,7 @@ SteepTurnDisplay.propTypes = {
     targetElevation: PropTypes.number.isRequired,
     rollInOutHeading: PropTypes.number.isRequired,
     headingProgress: PropTypes.number.isRequired,
+    turnDirection: PropTypes.string.isRequired,
     actualAirspeed: PropTypes.number.isRequired,
     actualElevation: PropTypes.number.isRequired,
     currentBank: PropTypes.number.isRequired,
