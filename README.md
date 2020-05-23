@@ -7,11 +7,12 @@ The goal is to support a variety of popular flight simulators. Potentially, the 
 
 The app is in **early** development.
 
-Connection to the X-Plane simulator is working. Tested with the iOS app on iOS 13.3.1 and X-Plane v11.41. Receives altitude, engine RPM, and indicated airspeed. 
+Connection to the X-Plane simulator is working. Tested with the iOS app on iOS 13.3.1 and X-Plane v11.41.
+
+The steep turn maneuver is fully supported.
 
 ## Next steps
 
-- Get the steep turns maneuver fully working.
 - Implement automated network search for the X-Plane server
 
 ## Mid-term goals
